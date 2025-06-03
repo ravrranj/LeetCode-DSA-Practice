@@ -5,7 +5,7 @@ public class TwoSumOptimized {
     public static int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> map = new HashMap<>();  // nums -> index
 
-        // First pass: Store all values
+           // First pass: Store all values
         for (int i = 0; i < nums.length; i++) {
             map.put(nums[i], i);
         }

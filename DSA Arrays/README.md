@@ -289,3 +289,81 @@ If the stack is empty too early or if the popped element doesn't match → ❌ N
 
 🧠 Key Insight:
 Using a stack lets us track the most recent open bracket and ensures that it matches with the correct closing bracket. If anything is mismatched or out of order, the check fails immediately.
+
+## Problem: Best Time to Buy and Sell Stock
+
+Problem statement : You are given an array prices where prices[i] is the price of a given stock on the ith day.You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+### ✅ Approach:
+- Use a greedy strategy.
+- Track the minimum price seen so far (`minPrice`).
+- At each price, calculate profit if sold today: `price - minPrice`.
+- Update `maxProfit` accordingly.
+
+### 🔍 Example:
+Input: [7, 1, 5, 3, 8, 4]  
+- minPrice goes from 7 → 1  
+- maxProfit updates as: 0 → 4 → 7
+
+Output: `7`
+
+### ⏱️ Complexity:
+- **Time:** O(n)
+- **Space:** O(1)
+
+### ✅ Java Code:
+```java
+
+public class MaxProfit {
+    public static int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price);
+            maxProfit = Math.max(maxProfit, price - minPrice);
+        }
+        return maxProfit;
+    }
+
+    public static void main(String[] args) {
+        int[] price = {7, 1, 5, 3, 8, 4};
+        System.out.println("Max Profit: " + maxProfit(price));
+    }
+}
+
+## Move Zeroes
+
+🔍 Problem Statement:
+Move all 0s to the end of the array while maintaining the relative order of non-zero elements. Do this in-place with O(1) extra space.
+
+💡 Approach:
+We avoid overthinking the phrase "move all 0's to the end." Instead, we focus on pulling all the non-zero elements to the front while tracking their position.
+
+Here's how we do it:
+
+Create a pointer count starting at index 0.
+
+Iterate through the array:
+
+If the current element is non-zero, we place it at index count and increment count.
+
+Once all non-zero elements are in place, fill the remaining positions (from count to nums.length - 1) with 0s.
+
+This way:
+
+Non-zero elements are preserved in order.
+
+Zeroes are pushed to the end.
+
+The entire operation is in-place with a single traversal + zero-fill.
+
+🧠 Intuition:
+We're not actually "pushing zeroes" — we're pulling non-zeroes forward, and the leftover space automatically becomes the home for 0s.
+
+✅ Example:
+Input: [0, 1, 0, 4, 0, 11]
+Output: [1, 4, 11, 0, 0, 0]
+
+✨ Optional Interviewer Line:
+"I used a greedy two-pass approach to move non-zero elements forward and fill the rest with 0s. It’s clean, in-place, and maintains relative order."
