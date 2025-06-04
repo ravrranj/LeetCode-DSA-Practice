@@ -367,3 +367,33 @@ Output: [1, 4, 11, 0, 0, 0]
 
 ✨ Optional Interviewer Line:
 "I used a greedy two-pass approach to move non-zero elements forward and fill the rest with 0s. It’s clean, in-place, and maintains relative order."
+
+🧠 Problem: Intersection of Two Arrays
+LeetCode 349 – Easy
+
+🔍 Problem Statement
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique, and you may return the result in any order.
+
+✅ Approach: Using HashSet
+We use two HashSets:
+
+One (set1) to store all elements of nums1.
+
+Another (resultSet) to store the intersection (common elements) between nums1 and nums2.
+
+💡 Logic:
+
+1.  Traverse through nums1 and add each element to set1.
+
+2.  Loop through nums2, and for each element:
+
+3.  Check if it exists in set1.
+
+If it does, add it to resultSet.
+Since Set automatically removes duplicates, we don’t need to handle that manually.
+
+Convert resultSet to an array using:
+
+resultSet.stream().mapToInt(Integer::intValue).toArray();
+
+This step converts the set of Integer objects to a primitive int[] array.
