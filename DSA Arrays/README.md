@@ -369,7 +369,7 @@ Output: [1, 4, 11, 0, 0, 0]
 "I used a greedy two-pass approach to move non-zero elements forward and fill the rest with 0s. It’s clean, in-place, and maintains relative order."
 
 🧠 Problem: Intersection of Two Arrays
-LeetCode 349 – Easy
+##  LeetCode 349 – Easy
 
 🔍 Problem Statement
 Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique, and you may return the result in any order.
@@ -397,3 +397,50 @@ Convert resultSet to an array using:
 resultSet.stream().mapToInt(Integer::intValue).toArray();
 
 This step converts the set of Integer objects to a primitive int[] array.
+
+
+## LeetCode 26 – Easy
+
+📌 Problem Statement:
+Given a sorted array nums, remove the duplicates in-place such that each unique element appears only once.
+Return the number of unique elements.
+Do not use extra memory.
+
+In this problem, we are asked to make sure that each unique element appears only once in the array.
+
+What we’re doing:
+
+We start from index = 0
+
+For each element in the array, we check:
+
+If it's the first element or
+
+If the current number is not equal to the last unique number we added (nums[index - 1] != nums[i])
+
+If the condition is true, we place the unique element at nums[index] and increment index to move ahead
+
+We repeat this till the end of the array
+
+Since the problem also asks for the value k (number of unique elements), we return the final value of index
+
+🧠 Code:
+
+public class RemoveDuplicates {
+    public int removeDuplicates(int[] nums) {
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (index == 0 || nums[index - 1] != nums[i]) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
+    }
+}
+
+🧪 Example:
+Input: [1, 1, 2, 3, 3]
+Output: 3
+Modified Array: [1, 2, 3, _, _]
+
