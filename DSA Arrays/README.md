@@ -444,3 +444,23 @@ Input: [1, 1, 2, 3, 3]
 Output: 3
 Modified Array: [1, 2, 3, _, _]
 
+🧠 problem statemnet : Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+## 268. Missing Number
+
+Finding the Missing Number Using XOR
+We are given an array of n numbers ranging from 0 to n, but one number is missing. Our goal is to identify it efficiently.
+Approach: XOR Trick
+- Compute XOR of all numbers in the array (xorNums).
+- Compute XOR of numbers from 0 to n (xorFull).
+- Due to XOR properties, duplicate values cancel out: a ^ a = 0.
+- The final result xorFull ^ xorNums gives the missing number since it's the only one that wasn’t paired.
+Time & Space Complexity
+✅ Time Complexity: ( O(n) )
+✅ Space Complexity: ( O(1) )
+This method ensures constant space usage and runs in linear time, making it a smart choice for missing-number detection!
+
+Step-by-Step Execution
+Let's say nums = {0, 1, 3} (where 2 is missing):
+- XOR all numbers in the array → 0 ^ 1 ^ 3
+- XOR all numbers from 0 to n (including the missing number) → 0 ^ 1 ^ 2 ^ 3
+- Everything cancels out except the missing number → 2 remains!
