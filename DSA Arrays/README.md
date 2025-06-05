@@ -464,3 +464,58 @@ Let's say nums = {0, 1, 3} (where 2 is missing):
 - XOR all numbers in the array → 0 ^ 1 ^ 3
 - XOR all numbers from 0 to n (including the missing number) → 0 ^ 1 ^ 2 ^ 3
 - Everything cancels out except the missing number → 2 remains!
+
+🧠 Problem: Palindrome Number (LeetCode 9)
+
+### 🧾 Problem Statement:
+Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.
+
+A palindrome is a number that reads the same backward as forward.
+
+---
+
+### ✅ Approach 1: Convert to String
+- Convert the number to a string.
+- Reverse it and compare with the original.
+
+### ✅ Approach 2: Reverse Half of the Number
+- Skip using extra space or string conversion.
+- Reverse digits until reversed ≥ x, then compare the halves.
+
+---
+
+### 🧠 Key Checks:
+- Negative numbers → ❌ Not palindromes
+- Numbers ending with `0` but not `0` itself → ❌ Not palindromes
+
+---
+
+### ✅ Java Code (Optimized):
+
+```java
+public boolean isPalindrome(int x) {
+    if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+
+    int reversed = 0;
+    while (x > reversed) {
+        reversed = reversed * 10 + x % 10;
+        x /= 10;
+    }
+
+    return x == reversed || x == reversed / 10;
+}
+
+🕒 Complexity:
+
+| Metric | Value     |
+| ------ | --------- |
+| Time   | O(log₁₀n) |
+| Space  | O(1)      |
+
+🧩 Examples:
+
+| Input | Output | Reason                     |
+| ----- | ------ | -------------------------- |
+| 121   | true   | 121 reversed is 121        |
+| -121  | false  | Negative numbers not valid |
+| 10    | false  | 10 reversed is 01          |
