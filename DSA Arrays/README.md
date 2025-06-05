@@ -519,3 +519,45 @@ public boolean isPalindrome(int x) {
 | 121   | true   | 121 reversed is 121        |
 | -121  | false  | Negative numbers not valid |
 | 10    | false  | 10 reversed is 01          |
+
+
+🧠 Problem: 88. Merge Sorted Array
+We are given two sorted arrays:
+
+nums1 of size m + n, where the first m elements are meaningful and the rest are zero placeholders.
+
+nums2 of size n.
+
+We need to merge nums2 into nums1 in-place so that the final nums1 becomes a sorted array of length m + n.
+
+🚀 Approach: Three-Pointer Technique (Start from the End)
+
+Since we can’t use extra space, we start filling nums1 from the end (index m + n - 1) using a three-pointer approach:
+
+i → Points to the last meaningful element in nums1 (i = m - 1)
+
+j → Points to the last element in nums2 (j = n - 1)
+
+k → Points to the end of nums1 (k = m + n - 1)
+
+🔁 Steps:
+While j >= 0:
+
+If nums1[i] > nums2[j], place nums1[i] at nums1[k] and decrement i
+
+Else, place nums2[j] at nums1[k] and decrement j
+
+Decrement k in each iteration
+
+If any elements remain in nums2, they’ll be placed at the front of nums1 (already handled in the loop)
+
+✅ Example:
+
+nums1 = [1,2,3,0,0,0], m = 3  
+nums2 = [2,5,6], n = 3
+
+// Output: [1,2,2,3,5,6]
+
+💡 Key Insight:
+
+By filling from the back, we prevent overwriting useful data in nums1, making this approach efficient and in-place.
