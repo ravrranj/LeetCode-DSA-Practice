@@ -705,3 +705,90 @@ O(1) – constant space, no extra data structures
 ✅ [1, 2, 3, 4, 5] → no drop → valid
 
 ❌ [2, 1, 3, 4] → drop at 2→1 AND 1→3 → invalid
+
+
+✅ 217. Contains Duplicate
+
+🔗 Problem Link
+LeetCode 217 - Contains Duplicate
+
+🧾 Problem Statement
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+🔍 Examples
+Input: nums = [1,2,3,1]
+Output: true
+
+Input: nums = [1,2,3,4]
+Output: false
+
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
+Output: true
+
+🧠 Approach 1: HashSet (Optimal)
+✅ Idea:
+We use a HashSet to track all elements we’ve seen.
+If any element is already present in the set, it means there is a duplicate.
+
+✅ Why it works:
+HashSet only stores unique elements.
+
+.add() returns false if the element already exists.
+
+✅ Java Code:
+
+import java.util.HashSet;
+
+public class ContainsDuplicate {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> seen = new HashSet<>();
+
+        for (int num : nums) {
+            if (!seen.add(num)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+🧠 Approach 2: Sort + Compare (Space-Optimized)
+✅ Idea:
+Sort the array so that duplicates are adjacent.
+
+Check if any two adjacent elements are the same.
+
+✅ When to use:
+When you're asked to avoid extra space.
+
+✅ Java Code:
+
+import java.util.Arrays;
+
+public class ContainsDuplicateSorted {
+    public boolean containsDuplicate(int[] nums) {
+        Arrays.sort(nums); // Sorting the array
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == nums[i + 1]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+⏱️ Time and Space Complexity
+
+| Approach           | Time Complexity | Space Complexity |
+| ------------------ | --------------- | ---------------- |
+| **HashSet**        | `O(n)`          | `O(n)`           |
+| **Sort + Compare** | `O(n log n)`    | `O(1)` (extra)   |
+
+✨ Notes
+
+In interviews, prefer the HashSet version unless space optimization is specifically required.
+
+HashSet.add() is a clean way to check for duplicates in O(1) average time.
