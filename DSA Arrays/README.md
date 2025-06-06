@@ -561,3 +561,72 @@ nums2 = [2,5,6], n = 3
 💡 Key Insight:
 
 By filling from the back, we prevent overwriting useful data in nums1, making this approach efficient and in-place.
+
+🔢 LeetCode Problem: 169. Majority Element
+🧾 Problem Statement
+Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times.
+You may assume that the majority element always exists in the array.
+
+✅ Example
+
+Input: nums = [3,2,3]
+Output: 3
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+
+🚀 Approach: Boyer-Moore Voting Algorithm
+This algorithm efficiently finds the majority element using constant space and linear time.
+
+💡 Intuition:
+The majority element appears more than all others combined.
+
+So even if we "cancel out" different elements one by one, the majority will always survive in the end.
+
+🧠 Logic:
+Initialize a candidate (majority) and a vote counter.
+
+Iterate through the array:
+
+If vote == 0, assign the current element as the new candidate.
+
+If current element equals majority, increment vote.
+
+Else, decrement vote.
+
+After the loop, the majority will hold the correct majority element.
+
+🧑‍💻 Code:
+
+public class MajorityElement {
+    public int majorityElement(int[] nums) {
+        int majority = nums[0], votes = 1;
+
+        for (int i = 1; i < nums.length ; i++) {
+            if (votes == 0) {
+                votes++;
+                majority = nums[i];
+            } else if (majority == nums[i]) {
+                votes++;
+            } else {
+                votes--;
+            }
+        }
+        return majority;
+    }
+}
+
+⏱️ Time Complexity:
+O(n) – single pass through the array
+
+🧮 Space Complexity:
+O(1) – constant space used (no extra data structures)
+
+🧪 Alternate Approach (for practice):
+Use a HashMap<Integer, Integer> to count frequencies (but this uses O(n) space, not optimal).
+
+📌 Notes:
+This problem is commonly asked in interviews.
+
+Boyer-Moore is a useful trick for majority element detection without extra space.
