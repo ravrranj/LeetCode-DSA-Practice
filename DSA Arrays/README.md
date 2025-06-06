@@ -864,4 +864,109 @@ The technique of prefix + running suffix is a powerful pattern for “array-exce
 
 Always double-check edge cases (single element, zeros) – the algorithm naturally handles them because answer starts with 1.
 
+📄 Problem: 2461. Maximum Sum of Distinct Subarrays With Length K
+
+✅ Goal:
+Given an integer array nums and a number k, return the maximum sum of any subarray of length k such that all elements in that subarray are distinct.
+
+Example : 
+Input: nums = [4,3,5,1,6], k = 3
+Output: 12
+Explanation: The subarray [3,5,6] has distinct elements and the sum is maximum.
+
+Approach & Explanation
+1️⃣ Understanding the Problem
+We need to: ✅ Maintain a window of size k.
+✅ Ensure all elements in the window are unique.
+✅ Keep track of the maximum sum of a valid subarray.
+2️⃣ Strategy
+We use a Sliding Window + Hash Set approach:
+- HashSet (set) ensures that the window contains unique elements.
+- Sliding Window adjusts dynamically—removing old values when duplicates appear or when the size exceeds k.
+- Tracking Sum helps compute the max sum efficiently.
+
+
+Code Breakdown
+🚀 Step-by-Step Explanation
+1️⃣ Initialize set, sum, max, and window pointer.
+2️⃣ Loop through the array:
+- If the current number already exists in set OR window reaches k, remove the oldest element.
+- Add the new number to set and update sum.
+- If the window contains exactly k elements, update max.
+3️⃣ Return the maximum sum found.
+Key Optimizations
+🔹 Only one pass → Runs in O(n), making it efficient.
+🔹 Set ensures uniqueness → Prevents unnecessary checks.
+🔹 Sliding Window prevents recomputation → Keeps operations minimal.
+
+Code Implementation
+import java.util.HashSet;
+import java.util.Set;
+
+public class Solution {
+    public long maximumSubarraySum(int[] nums, int k) {
+        Set<Integer> set = new HashSet<>();
+        long sum = 0, max = 0;
+        int window = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            while(set.contains(nums[i]) || set.size() == k) {
+                set.remove(nums[window]);
+                sum -= nums[window++];
+            }
+
+            sum += nums[i];
+            set.add(nums[i]);
+
+            if(set.size() == k) {
+                max = Math.max(max, sum);
+            }
+        }
+        return max;
+    }
+}
+
+🔍 Approach:
+We use a sliding window along with a HashSet to track distinct elements in the current window.
+
+Steps:
+1.  Initialize:
+
+Set<Integer> set — tracks distinct elements.
+
+sum — current window sum.
+
+max — stores the maximum valid sum found.
+
+window — left boundary of our sliding window.
+
+2. Traverse nums using i as the right pointer:
+
+While the window is invalid (duplicate element OR size == k):
+
+Shrink the window from the left by removing nums[window] from the set and subtracting it from the sum.
+
+Increment window.
+
+Add nums[i] to the set and to the sum.
+
+If the set size becomes exactly k, update max.
+
+3. Return the value of max.
+
+Interview-Ready Explanation (Non-Coder Friendly)
+Imagine we’re looking through a window, trying to pick the best view.
+- We can only see k elements at a time.
+- If we see duplicates, we need to shift the window to remove old ones.
+- At every step, we check if this new view (subarray) has the highest sum possible.
+We use a tracking system (Set) to ensure our window always contains unique numbers, adjusting the view whenever needed.
+By sliding through the array once, we efficiently find the largest valid subarray sum without doing unnecessary work. 🚀
+
+Why This Solution Works Well
+✔ Time Complexity: O(n) → Only one pass, making it fast.
+✔ Space Complexity: O(k) → Only stores elements inside the window.
+✔ Efficient Handling of Duplicates: Set removes old values dynamically.
+✔ Scalable: Works for large datasets.
+
+
 
