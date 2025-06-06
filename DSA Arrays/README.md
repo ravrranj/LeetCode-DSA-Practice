@@ -630,3 +630,78 @@ Use a HashMap<Integer, Integer> to count frequencies (but this uses O(n) space, 
 This problem is commonly asked in interviews.
 
 Boyer-Moore is a useful trick for majority element detection without extra space.
+
+🔢 LeetCode Problem: 1752. Check if Array Is Sorted and Rotated
+
+🧾 Problem Statement
+Given an array nums, check whether it is a sorted array that has been rotated.
+An array is considered sorted and rotated if it is sorted in non-decreasing order, then some prefix of the array is moved to the end.
+
+🔁 Example:
+
+Input: nums = [3, 4, 5, 1, 2]
+Output: true
+
+Input: nums = [2, 1, 3, 4]
+Output: false
+
+Input: nums = [1, 2, 3]
+Output: true
+
+🚀 Approach: Count Drops (Circular Check)
+
+We traverse the array and count how many times the current element is greater than the next one.
+We also wrap around using modulus % to compare the last and first element — simulating a circular array.
+
+🔍 Key Insight:
+
+If the array is sorted and rotated, this "drop" in order can happen at most once.
+
+💡 Step-by-Step Logic:
+
+1. Store the length of the array n = nums.length.
+
+2. Use a loop from i = 0 to i < n.
+
+3. For each index i, compare:
+
+nums[i] > nums[(i + 1) % n]
+
+This handles circular comparison, like comparing last and first element.
+
+4. If this condition is true, increment a count of drops.
+
+5. If count <= 1, the array is sorted and rotated — ✅ return true.
+
+6. Else, more than one drop → ❌ return false.
+
+🧑‍💻 Code:
+
+public class CheckSortedAndRotated {
+    public boolean check(int[] nums) {
+        int count = 0;
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            int next = (i + 1) % n;
+            if (nums[i] > nums[next]) {
+                count++;
+            }
+        }
+
+        return count <= 1;
+    }
+}
+
+⏱️ Time Complexity:
+O(n) – single loop through the array
+
+🧮 Space Complexity:
+O(1) – constant space, no extra data structures
+
+🧪 Test Notes:
+✅ [3, 4, 5, 1, 2] → drop at 5→1 → valid
+
+✅ [1, 2, 3, 4, 5] → no drop → valid
+
+❌ [2, 1, 3, 4] → drop at 2→1 AND 1→3 → invalid
