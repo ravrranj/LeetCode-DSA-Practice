@@ -792,3 +792,76 @@ public class ContainsDuplicateSorted {
 In interviews, prefer the HashSet version unless space optimization is specifically required.
 
 HashSet.add() is a clean way to check for duplicates in O(1) average time.
+
+##  🚀 238. Product of Array Except Self
+
+🔗 Problem Link
+LeetCode 238 – Product of Array Except Self
+
+🧾 Problem Statement
+Given an integer array nums, return an array answer such that answer[i] is the product of all elements of nums except nums[i].
+
+Constraints
+
+No division is allowed.
+
+The solution must run in O(n) time and use O(1) extra space (excluding the output array).
+
+🧠 Intuition & Approach
+To meet the O(1)-extra-space requirement we can’t store full prefix and suffix arrays.
+Instead we do the work in two passes, re-using the output array:
+
+1. Prefix Pass (Left ➜ Right)
+Initialize answer[0] = 1.
+For every index i (from 1 to n-1):
+answer[i] = answer[i-1] * nums[i-1];
+
+At this point answer[i] holds the product of all elements to the left of i.
+
+2. Suffix Pass (Right ➜ Left)
+Maintain a running variable suffix = 1.
+Walk from the end of the array to the start:
+answer[i] *= suffix;   // combine prefix and suffix
+suffix    *= nums[i];  // update suffix for next iteration
+
+By multiplying the existing prefix product with the running suffix,
+answer[i] becomes the product of all elements except nums[i].
+
+💻 Code (Java)
+
+public class ProductExceptSelf {
+    public int[] productExceptself(int[] nums) {
+        int n = nums.length;
+        int[] answer = new int[n];
+
+        // 1) Prefix products
+        answer[0] = 1;
+        for (int i = 1; i < n; i++) {
+            answer[i] = answer[i - 1] * nums[i - 1];
+        }
+
+        // 2) Suffix products and combine
+        int suffix = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            answer[i] *= suffix;
+            suffix *= nums[i];
+        }
+
+        return answer;
+    }
+}
+
+⏱️ Complexity Analysis
+| Metric          | Complexity                                                              |
+| --------------- | ----------------------------------------------------------------------- |
+| **Time**        | `O(n)` – two linear scans                                               |
+| **Extra Space** | `O(1)` – only constant variables (`suffix`) aside from the output array |
+
+✨ Key Takeaways
+Using two passes lets us avoid both division and extra arrays.
+
+The technique of prefix + running suffix is a powerful pattern for “array-except-self”–style problems.
+
+Always double-check edge cases (single element, zeros) – the algorithm naturally handles them because answer starts with 1.
+
+
