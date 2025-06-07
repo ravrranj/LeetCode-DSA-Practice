@@ -994,3 +994,87 @@ The area is determined by the shorter height, not the taller one. So always move
 Time: O(n) — Single pass from both ends.
 
 Space: O(1) — No extra space used.
+
+📘 Problem: Longest Substring Without Repeating Characters
+
+🧩 LeetCode #3
+🔗 Link to problem
+
+📄 Problem Statement:
+Given a string s, find the length of the longest substring without repeating characters.
+
+Explanation of lengthOfLongestSubstring Method
+
+This method finds the length of the longest substring without repeating characters in a given string s. It uses the Sliding Window technique with a HashMap to efficiently track character positions.
+
+Approach
+- Initialize Variables:
+- max: Stores the maximum length of a substring found so far.
+- left: Represents the left boundary of the sliding window.
+- lastPos: A HashMap<Character, Integer> that keeps track of the last seen position of each character.
+- Iterate Through the String:
+- We use a right pointer to expand the window by iterating over each character in s.
+- If the current character ch has been seen before within the current window, we move the left pointer to exclude the previous occurrence.
+- Update the last seen position of ch in lastPos.
+- Update Maximum Length:
+- After processing each character, update max with the current window size: right - left + 1.
+
+Key Observations
+- The HashMap ensures O(1) lookups, making the approach efficient.
+- The Sliding Window prevents unnecessary reprocessing, leading to an O(n) time complexity.
+- The left pointer only moves forward, ensuring each character is processed at most once.
+
+Time & Space Complexity
+- Time Complexity: O(n) → Each character is processed once.
+- Space Complexity: O(min(n, 26)) → At most 26 characters (for lowercase English letters) are stored in the HashMap.
+
+
+Example Walkthrough
+Input: "abcabcbb"
+Step-by-Step Execution : 
+| Step | right | ch | left | lastPos (Updated) | max | 
+| 1 | 0 | 'a' | 0 | {'a': 0} | 1 | 
+| 2 | 1 | 'b' | 0 | {'a': 0, 'b': 1} | 2 | 
+| 3 | 2 | 'c' | 0 | {'a': 0, 'b': 1, 'c': 2} | 3 | 
+| 4 | 3 | 'a' | 1 | {'a': 3, 'b': 1, 'c': 2} | 3 | 
+| 5 | 4 | 'b' | 2 | {'a': 3, 'b': 4, 'c': 2} | 3 | 
+| 6 | 5 | 'c' | 3 | {'a': 3, 'b': 4, 'c': 5} | 3 | 
+| 7 | 6 | 'b' | 5 | {'a': 3, 'b': 6, 'c': 5} | 3 | 
+| 8 | 7 | 'b' | 7 | {'a': 3, 'b': 7, 'c': 5} | 3 | 
+
+
+Final Output: 3 (Longest substring: "abc")
+
+
+💻 Code (Java - Optimized Using HashMap):
+
+import java.util.HashMap;
+
+public class LengthOfLongestSubstring {
+
+    public int lengthOfLongestSubstring(String s) {
+        int max = 0;
+        int left = 0;
+        HashMap<Character, Integer> lastPos = new HashMap<>();
+
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+
+            if (lastPos.containsKey(ch) && lastPos.get(ch) >= left) {
+                left = lastPos.get(ch) + 1;  // jump left pointer
+            }
+
+            lastPos.put(ch, right);
+            max = Math.max(max, right - left + 1);
+        }
+        return max;
+    }
+}
+
+🧠 Time & Space Complexity:
+Time Complexity: O(n)
+
+Space Complexity: O(k), where k is the character set size (e.g. 128 for ASCII)
+
+
+
