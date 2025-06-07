@@ -968,5 +968,29 @@ Why This Solution Works Well
 ✔ Efficient Handling of Duplicates: Set removes old values dynamically.
 ✔ Scalable: Works for large datasets.
 
+🧠 Problem: Container With Most Water (LeetCode #11)
+📝 Problem Summary:
+Given an array of integers representing heights, find two lines such that together with the x-axis, they form a container that holds the most water. The container's area is determined by the shorter of the two lines and the distance between them.
 
+🚀 Approach: Two Pointer Technique (O(n))
+We use a two-pointer approach to find the maximum water area efficiently in linear time.
 
+Initialize two pointers, one at the beginning (left) and one at the end (right) of the array.
+
+Calculate the width as the distance between the two pointers.
+
+Determine the height by taking the minimum of the heights at the left and right pointers — since water is limited by the shorter line.
+
+Compute the current area using width * height.
+
+Update the maximum area if the current area is larger.
+
+Move the pointer with the smaller height inward (since it’s the limiting factor for area) to explore potentially higher heights.
+
+🧮 Key Insight:
+The area is determined by the shorter height, not the taller one. So always move the pointer at the smaller height to maximize chances of finding a larger area.
+
+✅ Time & Space Complexity:
+Time: O(n) — Single pass from both ends.
+
+Space: O(1) — No extra space used.
