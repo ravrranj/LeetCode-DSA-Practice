@@ -18,7 +18,6 @@ public class IsPlaidrome {
         if (x == 0) return true;
         if (x < 0) return false;
        
-        
         String num = x + "";
         return checkPalindrome(num);
     }

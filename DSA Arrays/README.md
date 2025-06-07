@@ -1071,10 +1071,109 @@ public class LengthOfLongestSubstring {
     }
 }
 
-🧠 Time & Space Complexity:
+##  Time & Space Complexity:
 Time Complexity: O(n)
 
 Space Complexity: O(k), where k is the character set size (e.g. 128 for ASCII)
 
 
+🧠 Longest Substring with At Most K Distinct Characters
+Problem:
+Given a string S and an integer K, find the length of the longest substring that contains at most K distinct characters.
 
+Approach:
+We use the sliding window technique with two pointers and a HashMap to efficiently track characters and their counts within the current window.
+
+Step-by-step solution:
+
+1. Edge cases:
+
+If K is 0, or the string is null or empty, return 0 immediately.
+
+2. Initialize variables:
+
+left pointer at 0 (start of the sliding window).
+
+maxLength to keep track of the maximum length found so far.
+
+A HashMap<Character, Integer> to count occurrences of characters in the current window.
+
+3. Expand the window using the right pointer:
+
+Iterate right from 0 to the end of the string.
+
+Add the character at right to the HashMap or increment its count.
+
+4. Shrink the window if needed:
+
+While the size of the HashMap (number of distinct characters) exceeds K, shrink the window from the left:
+
+Decrement the count of the character at left.
+
+If the count drops to zero, remove that character from the map.
+
+Increment left pointer to shrink the window.
+
+5. Update the maximum length:
+
+After adjusting the window to ensure it has at most K distinct characters, update maxLength to be the maximum of the current maxLength and the current window size (right - left + 1).
+
+6. Return maxLength after processing the whole string.
+
+Time Complexity: O(n) — each character is processed at most twice (once when expanding right pointer, once when shrinking left pointer).
+Space Complexity: O(k) — HashMap holds at most k characters.
+
+Example
+For S = "eceba" and K = 2:
+
+The longest substring with at most 2 distinct characters is "ece" with length 3.
+
+
+🧠 Longest Substring with Exactly K Distinct Characters
+
+Problem Statement
+Given a string S and an integer K, find the length of the longest substring that contains exactly K distinct characters.
+
+Approach
+We use a sliding window technique combined with a HashMap to keep track of the characters and their frequencies within the current window.
+
+Detailed Steps
+1. Edge Cases:
+Return 0 if K is 0, or the string is null or empty.
+
+2. Initialize Pointers and Data Structures:
+
+left pointer at the start of the string (index 0).
+
+Variable maxLength to track the longest valid substring length found so far.
+
+A HashMap<Character, Integer> to count the occurrences of characters in the current window.
+
+3. Expand the Window with the Right Pointer:
+Iterate right pointer over the string and update the frequency of the current character in the map.
+
+4. Shrink the Window if Distinct Characters Exceed K:
+While the size of the HashMap (number of distinct characters) is greater than K, shrink the window from the left by reducing the frequency of the leftmost character, and remove it from the map if its count reaches zero. Increment left pointer.
+
+5. Update Max Length for Exactly K Distinct:
+When the HashMap size is exactly K, update maxLength with the current window size (right - left + 1) if it is larger than the previous maxLength.
+
+6. Return Result:
+After processing the string, return the maxLength as the length of the longest substring with exactly K distinct characters.
+
+Complexity Analysis
+Time Complexity: O(n), where n is the length of the string — each character is visited at most twice (once by the right pointer and once by the left pointer).
+
+Space Complexity: O(k), as the HashMap stores at most K distinct characters at any time.
+
+Example
+Input: S = "aabbcc", K = 2
+Output: 4
+Explanation: Longest substrings with exactly 2 distinct characters are "aabb" and "bbcc", both of length 4.
+
+Key Points to Remember
+The sliding window ensures we consider all substrings efficiently without repeated scanning.
+
+Shrinking the window maintains the invariant that the substring contains at most K distinct characters — allowing us to check when it equals exactly K.
+
+Using a HashMap to store character counts allows constant time updates and queries.
