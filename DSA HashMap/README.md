@@ -149,7 +149,7 @@ return -1;
 
 Time O(n) | Space O(1) — only 26 slots.
 
-2. HashMap (O(n) space)
+✅ 2.  HashMap (O(n) space)
 
 1. **Edge case** – empty string → -1.
 2. **Count** – Map<Character,Integer> freq.
