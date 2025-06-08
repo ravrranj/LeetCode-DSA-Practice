@@ -125,9 +125,6 @@ Both methods are efficient in O(n) time, but choosing the right one depends on s
 
 This README should make your GitHub repo stand out and impress interviewers! Want me to tweak anything or add examples? 😊
 
-# 387. First Unique Character in a String
-
-We solve it two ways:
 
 # 387. First Unique Character in a String
 
