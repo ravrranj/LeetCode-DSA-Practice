@@ -125,4 +125,44 @@ Both methods are efficient in O(n) time, but choosing the right one depends on s
 
 This README should make your GitHub repo stand out and impress interviewers! Want me to tweak anything or add examples? 😊
 
+# 387. First Unique Character in a String
 
+We solve it two ways:
+
+# 387. First Unique Character in a String
+
+We solve it two ways:
+
+### ✅ 1. Array-Based (O(1) space)
+
+1. **Edge case** – if `s` is empty, return `-1`.
+2. **Count** – use an `int[] freq = new int[26]`; for each `ch`, do `freq[ch - 'a']++`.
+3. **Scan again** – first `i` where `freq[ch - 'a'] == 1` → return `i`.
+
+```java
+int[] freq = new int[26];
+for (char c : s.toCharArray()) freq[c - 'a']++;
+for (int i = 0; i < s.length(); i++)
+    if (freq[s.charAt(i) - 'a'] == 1) return i;
+return -1;
+
+
+Time O(n) | Space O(1) — only 26 slots.
+
+2. HashMap (O(n) space)
+
+1. **Edge case** – empty string → -1.
+2. **Count** – Map<Character,Integer> freq.
+3. **Scan** – first index where freq.get(c) == 1 → return it.
+
+Map<Character,Integer> freq = new HashMap<>();
+for (char c : s.toCharArray()) freq.merge(c,1,Integer::sum);
+for (int i = 0; i < s.length(); i++)
+    if (freq.get(s.charAt(i)) == 1) return i;
+return -1;
+
+Handles Unicode / mixed case. Time O(n) | Space O(n).
+
+Which to choose?
+Array* is ultra-fast and constant space if input is only 'a'…'z'.
+HashMap* trades space for flexibility when character set is larger.
