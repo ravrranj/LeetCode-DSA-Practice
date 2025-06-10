@@ -228,3 +228,30 @@ Handles Unicode / mixed case. Time O(n) | Space O(n).
 Which to choose?
 Array* is ultra-fast and constant space if input is only 'a'…'z'.
 HashMap* trades space for flexibility when character set is larger.
+
+⛅✅ Question: 350. Intersection of Two Arrays II (Easy)
+Given two integer arrays nums1 and nums2, return an array of their intersection.
+Each element in the result must appear as many times as it shows in both arrays, and you may return the result in any order.
+sss
+
+🔊 Interview-style Explanation:
+We are given two arrays, nums1 and nums2, and we need to find the intersection, meaning elements that appear in both arrays, including duplicates — only as many times as they appear in both.
+
+To optimize, I first determine which array is shorter — since that will reduce our space usage. I then use a HashMap to count the frequency of each element in the shorter array.
+
+Next, I iterate over the second array and for each element, I check the frequency in the map. If it's greater than 0, that means it's a valid intersection — so I add it to the result and decrement the frequency in the map.
+
+Finally, I convert the result list into an array and return it.
+
+📊 Time & Space Complexity:
+Time Complexity: O(m + n)
+We traverse both arrays once — first to build the map and second to check for intersections.
+
+Space Complexity: O(min(m, n))
+Since we store frequencies only for the shorter array.
+
+🧠 Pro-Level Insight (Optional If Asked):
+We pick the shorter array for frequency mapping to minimize space and slightly improve performance in large datasets. Also, using getOrDefault() and List helps keep the code clean and readable.
+This method ensures a clean, efficient intersection computation with minimal space usage while maintaining duplicates correctly. HashMap allows constant-time lookups, making it ideal for handling large arrays where direct comparison would be inefficient.
+
+
