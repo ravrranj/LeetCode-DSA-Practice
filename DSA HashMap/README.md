@@ -39,6 +39,71 @@ public boolean containsDuplicate(int[] nums) {
 🎤 In an Interview (Spoken Summary):
 "To detect duplicates, I use a HashSet which helps me check for previously seen elements in constant time. As I loop through the array, I return true as soon as I find a duplicate. If the loop ends, I return false. This approach takes O(n) time and O(n) space."
 
+## Using HashMap : 
+
+To detect duplicates efficiently, we use a HashMap because it offers constant-time lookups.
+
+🔸 Why HashMap?
+Maps allow us to store key-value pairs.
+
+For this problem, the key is the number, and the value is its index (or any dummy value, really — we only care about the key for existence check).
+
+🧠 Step-by-Step Logic:
+We initialize a HashMap<Integer, Integer> called hm.
+
+We iterate over the array using a loop from index 0 to nums.length - 1.
+
+For each number:
+
+We check if it's already present in the hashmap using containsKey(nums[i]).
+
+If it is present, that means we’ve seen it before → return true (duplicate found).
+
+If it is not present, we add it to the map using put(nums[i], i).
+
+If the loop finishes without returning, that means all elements were unique → return false.
+
+✅ Java Code
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ContainsDuplicate {
+    public boolean containsDuplicate(Integer[] nums) {
+        Map<Integer, Integer> hm = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (hm.containsKey(nums[i])) {
+                return true;
+            } else {
+                hm.put(nums[i], i);
+            }
+        }
+
+        return false;
+    }
+}
+
+🧪 Example Dry Run:
+Input:
+nums = [1, 2, 3, 1]
+
+Steps:
+i = 0: 1 not in map → add it
+
+i = 1: 2 not in map → add it
+
+i = 2: 3 not in map → add it
+
+i = 3: 1 already in map → return true
+
+⏱️ Time & Space Complexity:
+Time: O(n) — Single pass through array
+
+Space: O(n) — In worst case, all elements are unique and go into the map
+
+
+
 🧠 Valid Anagram – Two Approaches
 
 Problem Statement
