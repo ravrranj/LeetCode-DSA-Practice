@@ -255,3 +255,36 @@ We pick the shorter array for frequency mapping to minimize space and slightly i
 This method ensures a clean, efficient intersection computation with minimal space usage while maintaining duplicates correctly. HashMap allows constant-time lookups, making it ideal for handling large arrays where direct comparison would be inefficient.
 
 
+## 347. Top K Frequent Elements
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+
+Step 1: Count Frequencies
+First, I use a HashMap<Integer, Integer> to count how many times each number appears in the array.
+
+Step 2: Bucket the Numbers by Frequency
+I create a bucket array List<Integer>[], where the index represents the frequency.
+So for example, if the number 3 appears 2 times, I’ll put it in bucket[2].
+
+Step 3: Collect Top K Elements
+I start from the end of the bucket (which holds the numbers with the highest frequency) and gather numbers until I have exactly k of them.
+
+⏱️ Time Complexity:
+
+Building frequency map: O(n)
+
+Filling buckets: O(n)
+
+Collecting top k: O(n)
+
+Total = O(n)
+
+📦 Space Complexity:
+
+HashMap → O(n)
+
+Bucket array → O(n)
+
+🎯 Why this approach?
+This approach avoids using a PriorityQueue (heap), so it’s more efficient when there are lots of duplicate elements. It’s also cleaner and avoids extra sorting.
+
