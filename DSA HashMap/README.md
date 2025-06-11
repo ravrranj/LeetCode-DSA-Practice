@@ -288,3 +288,121 @@ Bucket array → O(n)
 🎯 Why this approach?
 This approach avoids using a PriorityQueue (heap), so it’s more efficient when there are lots of duplicate elements. It’s also cleaner and avoids extra sorting.
 
+📁 DSA Arrays/15. 3Sum/README.md
+
+# 15. 3Sum 🔁
+
+## 🧠 Problem Statement:
+Given an integer array `nums`, return **all the unique triplets** `[nums[i], nums[j], nums[k]]` such that:
+- `i ≠ j ≠ k`
+- `nums[i] + nums[j] + nums[k] == 0`
+
+You must return **only unique triplets** and the **order of triplets doesn't matter**.
+
+---
+
+## ✅ Example
+
+```java
+Input: nums = [-1, 0, 1, 2, -1, -4]
+Output: [[-1, -1, 2], [-1, 0, 1]]
+
+🔎 Approach 1: Brute Force with HashSet
+✅ Steps:
+Use 3 nested loops to generate all triplets.
+
+Check if their sum is zero.
+
+Use a HashSet to ensure uniqueness of triplets.
+
+Sort triplets before inserting into the set to handle duplicate values.
+
+⏱️ Time Complexity: O(n³)
+💾 Space Complexity: O(k) for the set of triplets
+✅ Works, but very inefficient for large inputs.
+
+🔁 Approach 2: Two Pointer + HashSet
+✅ Steps:
+Sort the array.
+
+Fix one number nums[i], then use two pointers (left and right) to find pairs that make the total sum = 0.
+
+Use a HashSet to avoid duplicate triplets.
+
+✅ Code:
+Arrays.sort(nums);
+Set<List<Integer>> result = new HashSet<>();
+
+for (int i = 0; i < nums.length - 2; i++) {
+    int left = i + 1;
+    int right = nums.length - 1;
+
+    while (left < right) {
+        int sum = nums[i] + nums[left] + nums[right];
+
+        if (sum == 0) {
+            result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+            left++;
+            right--;
+        } else if (sum < 0) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+}
+
+return new ArrayList<>(result);
+}
+
+⏱️ Time: O(n²)
+💾 Space: O(k) for storing triplets in HashSet
+🏆 Approach 3: Final Optimized (No HashSet)
+✅ Improvements:
+Skip duplicates inline while iterating.
+
+No need to use a HashSet to avoid repeated triplets.
+
+Saves memory and avoids object creation overhead.
+
+✅ Code:
+
+Arrays.sort(nums);
+List<List<Integer>> result = new ArrayList<>();
+
+for (int i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue; // skip duplicates
+
+    int left = i + 1;
+    int right = nums.length - 1;
+
+    while (left < right) {
+        int sum = nums[i] + nums[left] + nums[right];
+
+        if (sum == 0) {
+            result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+            while (left < right && nums[left] == nums[left + 1]) left++;
+            while (left < right && nums[right] == nums[right - 1]) right--;
+
+            left++;
+            right--;
+        } else if (sum < 0) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+}
+
+return result;
+}
+
+⏱️ Time: O(n²)
+💾 Space: O(1) (excluding output)
+🎯 Conclusion
+| Version               | Time  | Space | Uniqueness Handling |
+| --------------------- | ----- | ----- | ------------------- |
+| Brute Force           | O(n³) | O(k)  | HashSet             |
+| Two Pointer + HashSet | O(n²) | O(k)  | HashSet             |
+| Final Optimized       | O(n²) | O(1)  | Skipped inline ✅    |
