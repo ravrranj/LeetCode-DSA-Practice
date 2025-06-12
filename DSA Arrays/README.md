@@ -1177,3 +1177,28 @@ The sliding window ensures we consider all substrings efficiently without repeat
 Shrinking the window maintains the invariant that the substring contains at most K distinct characters — allowing us to check when it equals exactly K.
 
 Using a HashMap to store character counts allows constant time updates and queries.
+
+## Rotate Array - In-Place Reverse Approach
+
+### Problem
+Given an array `nums`, rotate it to the right by `k` steps.
+
+### Approach:
+We use the reverse method to rotate the array in-place with `O(n)` time and `O(1)` space.
+
+#### Steps:
+1. **Reverse the entire array** — this moves the last `k` elements to the front (in reverse order).
+2. **Reverse the first `k` elements** — this restores the original order of the first rotated part.
+3. **Reverse the rest (`k` to `n-1`)** — this restores the order of the remaining part.
+
+### Example:
+Input:  
+`nums = [1, 2, 3, 4, 5, 6, 7], k = 3`  
+Steps:
+- Reverse whole array: `[7, 6, 5, 4, 3, 2, 1]`
+- Reverse first 3: `[5, 6, 7, 4, 3, 2, 1]`
+- Reverse last 4: `[5, 6, 7, 1, 2, 3, 4]` ✅
+
+### Complexity:
+- **Time:** O(n)
+- **Space:** O(1)
