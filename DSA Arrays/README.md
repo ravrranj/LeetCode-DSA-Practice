@@ -1266,3 +1266,71 @@ public class TwoSum2 {
 Don’t forget it’s 1-based indexing in the return value.
 
 This question is a great example of how recognizing a sorted input can help you optimize to O(n) using two pointers instead of using a HashMap.
+
+✅ 389. Find the Difference
+🔗 LeetCode Link: Find the Difference
+
+🧩 Problem Statement:
+You are given two strings:
+
+s — original string
+
+t — a shuffled version of s with one extra character added
+
+Return the extra character that was added to t.
+
+🧠 Approach: ASCII Sum Difference (Math Trick)
+💡 Intuition:
+Every character has an ASCII value.
+If we add up all characters in t and subtract all characters in s,
+we’ll be left with the ASCII value of the extra character.
+
+🔨 Steps:
+Initialize an integer total = 0
+
+Traverse through string t, and add ASCII value of each character to total
+
+Traverse through string s, and subtract ASCII value of each character from total
+
+What remains is the ASCII value of the extra character → return (char) total
+
+✅ Code:
+public class FindTheDifference {
+    public char findTheDifference(String s, String t) {
+        int total = 0;
+
+        for (int i = 0; i < t.length(); i++) {
+            total += t.charAt(i);
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            total -= s.charAt(i);
+        }
+
+        return (char) total;
+    }
+}
+
+⏱️ Time and Space Complexity:
+| Complexity | Value  | Notes                       |
+| ---------- | ------ | --------------------------- |
+| Time       | `O(n)` | Traverses both strings once |
+| Space      | `O(1)` | Constant extra space used   |
+
+Note: It’s O(n + n) technically, but we drop constants in Big-O.
+🧪 Example:
+Input: s = "abcd", t = "abcde"
+Output: 'e'
+
+✔️ ASCII of 'a' + 'b' + 'c' + 'd' is subtracted from 'a' + 'b' + 'c' + 'd' + 'e'
+→ Result is 'e'
+
+🗣️ Interview Tip:
+This is a perfect example of “math-based optimization”.
+
+You can also mention the XOR approach if they ask for alternatives:
+
+char result = 0;
+for (char c : s.toCharArray()) result ^= c;
+for (char c : t.toCharArray()) result ^= c;
+return result;
