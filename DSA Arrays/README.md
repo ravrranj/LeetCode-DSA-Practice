@@ -1202,3 +1202,67 @@ Steps:
 ### Complexity:
 - **Time:** O(n)
 - **Space:** O(1)
+
+✅ 167. Two Sum II - Input Array Is Sorted
+🔗 LeetCode Link: Two Sum II
+
+🧩 Problem Statement:
+You are given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, and an integer target.
+
+Return the indices of the two numbers such that they add up to target. The indices must be returned as an array of the two integers, and you may not use the same element twice.
+
+You must solve it using only constant extra space.
+
+🧠 Approach: Two Pointer Technique
+Since the array is sorted, we can use a two-pointer approach to find the two numbers efficiently:
+
+Initialize two pointers:
+
+i = 0 (start of array)
+
+j = numbers.length - 1 (end of array)
+
+While i < j:
+
+Calculate sum = numbers[i] + numbers[j]
+
+If sum == target: return [i + 1, j + 1] (1-based indexing)
+
+If sum < target: move the left pointer i++ (to get a larger number)
+
+If sum > target: move the right pointer j-- (to get a smaller number)
+
+🧮 Time & Space Complexity:
+| Complexity | Value                                             |
+| ---------- | ------------------------------------------------- |
+| Time       | `O(n)` — we scan from both ends                   |
+| Space      | `O(1)` — constant space, no extra data structures |
+
+✅ Code:
+public class TwoSum2 {
+    public int[] twoSum(int[] numbers, int target) {
+        int i = 0;
+        int j = numbers.length - 1;
+
+        while (i < j) {
+            int sum = numbers[i] + numbers[j];
+
+            if (sum == target) {
+                return new int[] { i + 1, j + 1 };
+            }
+
+            if (sum < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        return new int[] {};  // fallback, though the problem guarantees a solution
+    }
+}
+
+✍️ Notes:
+Don’t forget it’s 1-based indexing in the return value.
+
+This question is a great example of how recognizing a sorted input can help you optimize to O(n) using two pointers instead of using a HashMap.
