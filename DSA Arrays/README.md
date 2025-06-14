@@ -1334,3 +1334,105 @@ char result = 0;
 for (char c : s.toCharArray()) result ^= c;
 for (char c : t.toCharArray()) result ^= c;
 return result;
+
+✅ 53. Maximum Subarray
+🔍 Problem Statement:
+Find the contiguous subarray (containing at least one number) which has the largest sum, and return its sum.
+
+💡 Intuition:
+We are looking for a maximum sum subarray.
+If a subarray’s sum ever goes negative, we discard it — because adding negative sum to future elements only reduces the total.
+
+📦 Final Polished Java Code:
+public class MaxSubarray {
+    public int maxSubarray(int[] nums) {
+        int maxSum = nums[0];  // max sum found so far
+        int sum = 0;           // current sum of subarray
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];                // accumulate sum
+            if (sum > maxSum) maxSum = sum; // update max if needed
+            if (sum < 0) sum = 0;           // reset if sum goes negative
+        }
+
+        return maxSum;
+    }
+}
+
+🧠 Explanation:
+Initialize sum = 0 and maxSum = nums[0]
+
+Traverse array:
+
+Add current number to sum
+
+If sum becomes greater than maxSum, update maxSum
+
+If sum becomes negative, reset it to 0
+
+Return maxSum at the end.
+
+🧪 Dry Run Example: [−2,1,−3,4,−1,2,1,−5,4]
+Start with sum = 0, maxSum = -2
+
+Traverse and update:
+
+At i=3 → sum = 4 → maxSum = 4
+
+At i=5 → sum = 5 → maxSum = 5
+
+At i=6 → sum = 6 → maxSum = 6
+
+Final Answer: 6
+
+⏱️ Time & Space Complexity:
+Time: O(n)
+
+Space: O(1)
+
+✅ How to Explain 53. Maximum Subarray in an Interview
+🔹1. Start with the Problem Statement
+"We are given an integer array, and we need to find the contiguous subarray with the maximum sum."
+
+🔹2. Brute Force First (Optional, if asked)
+"A brute force solution would be to check the sum of every possible subarray, which would take O(n²) time."
+
+"But we can do better using Kadane’s Algorithm in O(n) time."
+
+🔹3. Introduce Kadane’s Algorithm (Core Explanation)
+"Kadane’s Algorithm works by maintaining two variables:"
+
+sum → current running sum of the subarray
+
+maxSum → maximum sum encountered so far
+
+"We iterate through the array, and at every step:
+– we add the current number to sum,
+– if sum becomes negative, we reset it to zero because negative sum would reduce future totals.
+– We keep updating maxSum with the maximum of current sum and previous maxSum."
+
+🔹4. Explain with One Example
+Say interviewer gives: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
+You can say:
+
+"We start with sum = 0 and maxSum = -2 (first element).
+We go through the array:
+
+Add -2 → sum = -2 → reset to 0
+
+Add 1 → sum = 1 → maxSum becomes 1
+
+Add -3 → sum = -2 → reset to 0
+
+Add 4 → sum = 4 → maxSum = 4
+
+Continue this way, maxSum ends up as 6."
+
+🔹5. Conclude with Complexity
+"Time complexity is O(n) — we scan the array once.
+Space complexity is O(1) — we use constant extra space."
+
+🧠 BONUS TIP: Add Why Reset on Negative
+"If the sum so far is negative, continuing the subarray will not help us get a bigger total in the future. So we reset."
+
