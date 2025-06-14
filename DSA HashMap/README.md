@@ -39,14 +39,27 @@ public boolean containsDuplicate(int[] nums) {
 🎤 In an Interview (Spoken Summary):
 "To detect duplicates, I use a HashSet which helps me check for previously seen elements in constant time. As I loop through the array, I return true as soon as I find a duplicate. If the loop ends, I return false. This approach takes O(n) time and O(n) space."
 
+🔑 Approach: Using HashMap
+We traverse the array and:
+
+Check if the current number is already in the map.
+
+If yes → duplicate found → return true.
+
+If not → store the number with its index and move on.
+
 ## Using HashMap : 
 
 To detect duplicates efficiently, we use a HashMap because it offers constant-time lookups.
-
-🔸 Why HashMap?
 Maps allow us to store key-value pairs.
 
 For this problem, the key is the number, and the value is its index (or any dummy value, really — we only care about the key for existence check).
+HashMap provides O(1) average-time complexity for:
+
+Lookup (containsKey)
+
+Insertion (put)
+
 
 🧠 Step-by-Step Logic:
 We initialize a HashMap<Integer, Integer> called hm.
