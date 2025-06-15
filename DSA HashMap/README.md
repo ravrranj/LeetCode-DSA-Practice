@@ -419,3 +419,84 @@ return result;
 | Brute Force           | O(n³) | O(k)  | HashSet             |
 | Two Pointer + HashSet | O(n²) | O(k)  | HashSet             |
 | Final Optimized       | O(n²) | O(1)  | Skipped inline ✅    |
+
+
+🔢 Subarray Sum Equals K
+This Java solution efficiently solves LeetCode Problem 560: Subarray Sum Equals K. It uses a prefix sum with hashmap strategy to count the number of contiguous subarrays whose elements sum to a given integer k.
+🧠 Problem Statement
+Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k.
+## Efficient Java solution for "560. Subarray Sum Equals K" using prefix sum and hashmap. Achieves linear time complexity!
+
+🚀 Approach
+We maintain a running prefix sum while iterating through the array and use a hashmap to track how often a particular sum has occurred. The key insight is that:
+If (currentSum - k) exists in the map, 
+it means there is a subarray ending at the current index that sums to k.
+
+Steps:
+- Initialize a hashmap to store frequency of prefix sums, starting with {0: 1}.
+- For each element:
+- Add it to the running sum.
+- Check if (currentSum - k) exists in the map. If it does, add the frequency to the count.
+- Update the hashmap with the current sum.
+This solution runs in O(n) time and uses O(n) space.
+
+Absolutely, Ravi! Here’s a crisp and professional README tailored for interview prep, personal revision, or sharing on GitHub. It explains both what the code does and why the approach works—great for impressing recruiters and reinforcing your own understanding.
+
+🔢 Subarray Sum Equals K
+This Java solution efficiently solves LeetCode Problem 560: Subarray Sum Equals K. It uses a prefix sum with hashmap strategy to count the number of contiguous subarrays whose elements sum to a given integer k.
+🧠 Problem Statement
+Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k.
+
+
+🚀 Approach
+We maintain a running prefix sum while iterating through the array and use a hashmap to track how often a particular sum has occurred. The key insight is that:
+If (currentSum - k) exists in the map, 
+it means there is a subarray ending at the current index that sums to k.
+
+
+Steps:
+- Initialize a hashmap to store frequency of prefix sums, starting with {0: 1}.
+- For each element:
+- Add it to the running sum.
+- Check if (currentSum - k) exists in the map. If it does, add the frequency to the count.
+- Update the hashmap with the current sum.
+This solution runs in O(n) time and uses O(n) space.
+
+🧪 Example
+int[] nums = {1, 1, 1};
+int k = 2;
+// Output: 2 (because [1,1] appears twice)
+
+
+
+📁 Code
+public int subarraySum(int[] nums, int k) {
+    HashMap<Integer, Integer> prefixSumCount = new HashMap<>();
+    prefixSumCount.put(0, 1);
+
+    int currentSum = 0;
+    int count = 0;
+
+    for (int num : nums) {
+        currentSum += num;
+
+        if (prefixSumCount.containsKey(currentSum - k)) {
+            count += prefixSumCount.get(currentSum - k);
+        }
+
+        prefixSumCount.put(currentSum, prefixSumCount.getOrDefault(currentSum, 0) + 1);
+    }
+
+    return count;
+}
+
+🧰 Concepts Practiced
+- Prefix Sum Technique
+- HashMap for frequency counting
+- Sliding window of logic (conceptually)
+- Handling edge cases with base prefix sum = 0
+
+✍️ Author
+- GitHub: ravrranj
+- Language: Java
+
