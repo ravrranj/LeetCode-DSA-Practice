@@ -1436,3 +1436,76 @@ Space complexity is O(1) — we use constant extra space."
 🧠 BONUS TIP: Add Why Reset on Negative
 "If the sum so far is negative, continuing the subarray will not help us get a bigger total in the future. So we reset."
 
+🔢 643. Maximum Average Subarray I
+This Java solution solves LeetCode Problem 643: Maximum Average Subarray I using an efficient sliding window technique.
+
+🧠 Problem Statement
+Given an integer array nums and an integer k, find the contiguous subarray of length k that has the maximum average value, and return this average.
+
+🚀 Approach
+We use the sliding window technique to efficiently calculate the sum of subarrays of size k in O(n) time:
+
+Compute the sum of the first window (first k elements).
+
+Then, slide the window one element at a time:
+
+Subtract the element going out of the window.
+
+Add the element coming into the window.
+
+Track the maximum sum seen during the process.
+
+Finally, return the average by dividing the max sum by k.
+
+📁 Code : 
+public class FindMaxAverage {
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;  // sum of the starting window
+        for (int i = 0; i < k; i++) sum += nums[i];
+
+        int maxSum = sum;
+
+        // Start sliding window
+        int startIndex = 0;
+        int endIndex = k;
+        while (endIndex < nums.length) {
+            sum -= nums[startIndex];    // remove previous element
+            sum += nums[endIndex];      // add next element
+
+            maxSum = Math.max(maxSum, sum);
+
+            startIndex++;
+            endIndex++;
+        }
+
+        return (double) maxSum / k;   // return the average value
+    }
+}
+
+🧪 Example
+Input:
+nums = [1, 12, -5, -6, 50, 3], k = 4
+
+Windows of size 4:
+
+[1,12,-5,-6] → sum = 2
+
+[12,-5,-6,50] → sum = 51 ✅
+
+[-5,-6,50,3] → sum = 42
+
+Output: 12.75
+
+🧰 Concepts Practiced
+Sliding Window
+
+Subarray Sum Tracking
+
+Space Optimization
+
+Time Complexity Analysis
+
+⏱️ Time & Space Complexity
+Time: O(n) — each element is visited once
+
+Space: O(1) — no extra data structures used
