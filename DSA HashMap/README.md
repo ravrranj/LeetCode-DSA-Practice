@@ -422,81 +422,139 @@ return result;
 
 
 🔢 Subarray Sum Equals K
-This Java solution efficiently solves LeetCode Problem 560: Subarray Sum Equals K. It uses a prefix sum with hashmap strategy to count the number of contiguous subarrays whose elements sum to a given integer k.
-🧠 Problem Statement
-Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k.
-## Efficient Java solution for "560. Subarray Sum Equals K" using prefix sum and hashmap. Achieves linear time complexity!
+This Java solution efficiently solves LeetCode Problem 560: Subarray Sum Equals K using the Prefix Sum + HashMap technique. It counts the number of contiguous subarrays whose elements sum up to a given integer k.
 
-🚀 Approach
-We maintain a running prefix sum while iterating through the array and use a hashmap to track how often a particular sum has occurred. The key insight is that:
-If (currentSum - k) exists in the map, 
-it means there is a subarray ending at the current index that sums to k.
-
-Steps:
-- Initialize a hashmap to store frequency of prefix sums, starting with {0: 1}.
-- For each element:
-- Add it to the running sum.
-- Check if (currentSum - k) exists in the map. If it does, add the frequency to the count.
-- Update the hashmap with the current sum.
-This solution runs in O(n) time and uses O(n) space.
-
-Absolutely, Ravi! Here’s a crisp and professional README tailored for interview prep, personal revision, or sharing on GitHub. It explains both what the code does and why the approach works—great for impressing recruiters and reinforcing your own understanding.
-
-🔢 Subarray Sum Equals K
-This Java solution efficiently solves LeetCode Problem 560: Subarray Sum Equals K. It uses a prefix sum with hashmap strategy to count the number of contiguous subarrays whose elements sum to a given integer k.
 🧠 Problem Statement
 Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k.
 
+🚀 Approach: Prefix Sum + HashMap (Optimized O(n))
+We maintain a running prefix sum while iterating through the array and use a HashMap to track how often a particular sum has occurred.
 
-🚀 Approach
-We maintain a running prefix sum while iterating through the array and use a hashmap to track how often a particular sum has occurred. The key insight is that:
-If (currentSum - k) exists in the map, 
-it means there is a subarray ending at the current index that sums to k.
+💡 Key Insight:
+If currentSum - k exists in the map, it means there's a subarray ending at the current index that sums to k.
 
+✅ Steps:
+Initialize a HashMap to store frequency of prefix sums. Start with {0: 1} to handle the base case.
 
-Steps:
-- Initialize a hashmap to store frequency of prefix sums, starting with {0: 1}.
-- For each element:
-- Add it to the running sum.
-- Check if (currentSum - k) exists in the map. If it does, add the frequency to the count.
-- Update the hashmap with the current sum.
-This solution runs in O(n) time and uses O(n) space.
+For each element in nums:
+
+Add it to the currentSum.
+
+Check if (currentSum - k) exists in the map.
+
+If yes, add its frequency to the count.
+
+Update the map with the current prefix sum.
+
+⏱️ Time Complexity: O(n)
+🧠 Space Complexity: O(n)
 
 🧪 Example
 int[] nums = {1, 1, 1};
 int k = 2;
-// Output: 2 (because [1,1] appears twice)
+// Output: 2, because subarrays [1,1] appear twice
 
+📁 Java Code
+import java.util.HashMap;
 
+public class SubarraySumEqualsK {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> prefixSumCount = new HashMap<>();
+        prefixSumCount.put(0, 1); // Base case for prefix sum
 
-📁 Code
-public int subarraySum(int[] nums, int k) {
-    HashMap<Integer, Integer> prefixSumCount = new HashMap<>();
-    prefixSumCount.put(0, 1);
+        int currentSum = 0;
+        int count = 0;
 
-    int currentSum = 0;
-    int count = 0;
+        for (int num : nums) {
+            currentSum += num;
 
-    for (int num : nums) {
-        currentSum += num;
+            if (prefixSumCount.containsKey(currentSum - k)) {
+                count += prefixSumCount.get(currentSum - k);
+            }
 
-        if (prefixSumCount.containsKey(currentSum - k)) {
-            count += prefixSumCount.get(currentSum - k);
+            prefixSumCount.put(currentSum, prefixSumCount.getOrDefault(currentSum, 0) + 1);
         }
 
-        prefixSumCount.put(currentSum, prefixSumCount.getOrDefault(currentSum, 0) + 1);
+        return count;
     }
-
-    return count;
 }
 
 🧰 Concepts Practiced
-- Prefix Sum Technique
-- HashMap for frequency counting
-- Sliding window of logic (conceptually)
-- Handling edge cases with base prefix sum = 0
+Prefix Sum Technique
 
-✍️ Author
-- GitHub: ravrranj
-- Language: Java
+HashMap for Frequency Counting
 
+Sliding Window Logic (Conceptually)
+
+Handling Edge Cases with Initial Sum = 0
+
+
+🔁 LeetCode 219 — Contains Duplicate II
+🧠 Problem Statement
+Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that:
+
+nums[i] == nums[j]
+
+and the absolute difference between i and j is at most k.
+
+🚀 Approach: HashMap for Tracking Indexes
+We use a HashMap to store the last seen index of each number.
+For every number:
+
+If it has appeared before:
+
+Check if the difference between indices is ≤ k
+
+If yes → return true
+
+Else or after checking → update the index in the map
+
+✅ Why This Works
+This solution leverages a sliding window of indices using a HashMap.
+
+We don’t store the whole subarray — just the last seen index
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+📁 Code (Java)
+import java.util.HashMap;
+import java.util.Map;
+
+public class ContainsNearbyDuplicate {
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> indexMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (indexMap.containsKey(nums[i])) {
+                int prevIndex = indexMap.get(nums[i]);
+                if (Math.abs(i - prevIndex) <= k) {
+                    return true;
+                }
+            }
+            // Always update to the latest index
+            indexMap.put(nums[i], i);
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 1};
+        int k = 3;
+        System.out.println(containsNearbyDuplicate(nums, k)); // Output: true
+    }
+}
+
+🧪 Example
+Input: nums = [1,2,3,1], k = 3  
+Output: true  
+Explanation: nums[0] == nums[3] and 3 - 0 = 3 ≤ k
+
+🎯 Concepts Practiced
+HashMap for index tracking
+
+Optimized lookup
+
+Sliding window based on index difference
