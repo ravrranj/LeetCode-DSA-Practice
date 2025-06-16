@@ -558,3 +558,77 @@ HashMap for index tracking
 Optimized lookup
 
 Sliding window based on index difference
+
+📁 Longest Substring Without Repeating Characters (LeetCode 3)
+
+🧠 Problem Statement
+Given a string s, find the length of the longest substring without repeating characters.
+
+
+We are given a string and asked to find the length of the longest substring such that it does not contain any repeating characters.
+
+To solve this, we use the sliding window technique along with a HashSet to track the characters in our current window.
+
+🚀 Approach
+We are solving this using the Sliding Window technique with a HashSet.
+
+Step-by-step:
+1. Initialize a left pointer at 0 and maxLength as 0.
+
+2. Use a for loop with a right pointer to scan through the string.
+
+3. Use a HashSet to track the characters in the current window.
+
+4. If the character at right is already in the set:
+
+   Move the left pointer forward and remove characters from the set until the duplicate is removed.
+
+5. Add the current character at right to the set.
+
+6. Update maxLength using:
+
+   maxLength = Math.max(maxLength, right - left + 1);
+
+7. Return the final value of maxLength.
+
+🧪 Dry Run
+
+Input: "pwwkew"
+
+→ p: ✅ (set: {p}) → max = 1  
+→ w: ✅ (set: {p, w}) → max = 2  
+→ w: ❌ → remove p, then w → (set: {w})  
+→ k: ✅ (set: {w, k}) → max = 2  
+→ e: ✅ (set: {w, k, e}) → max = 3  
+→ w: ❌ → remove until w is removed → final max = 3
+
+✅ Java Code
+import java.util.HashSet;
+import java.util.Set;
+
+public class LengthOfLongestSubstring {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> charSet = new HashSet<>();
+        int maxLength = 0;
+        int left = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            while (charSet.contains(s.charAt(right))) {
+                charSet.remove(s.charAt(left));
+                left++;
+            }
+            charSet.add(s.charAt(right));
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
+
+📈 Time and Space Complexity:
+Time Complexity: O(n) — Each character is visited at most twice.
+
+Space Complexity: O(n) — In the worst case, the HashSet may contain all unique characters.
+
+📌 Tags
+Sliding Window | HashSet | Two Pointers | Strings | LeetCode 3
