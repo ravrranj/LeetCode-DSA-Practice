@@ -1509,3 +1509,44 @@ Time Complexity Analysis
 Time: O(n) — each element is visited once
 
 Space: O(1) — no extra data structures used
+
+
+## Problem: Single Number
+
+### 🔗 LeetCode Link
+[Single Number](https://leetcode.com/problems/single-number/)
+
+### ✅ Approach Used
+**XOR Logic**  
+- XOR of a number with itself is 0: `a ^ a = 0`  
+- XOR of any number with 0 is the number: `a ^ 0 = a`  
+- So, XOR-ing all elements will cancel duplicates and leave the unique one.
+
+### 💡 Dry Run
+Input: [4,1,2,1,2]  
+XOR Steps:  
+- 4 ^ 1 = 5  
+- 5 ^ 2 = 7  
+- 7 ^ 1 = 6  
+- 6 ^ 2 = 4  
+
+Final result: 4 ✅
+
+### 🧠 Learnings
+- Bit manipulation using XOR is powerful  
+- Time: O(n) | Space: O(1) — Optimal solution
+
+📂Java code : 
+
+public class SingleNumber {
+    public int singleNumber(int[] nums) {
+        int single = nums[0]; // variable to store the XOR result
+
+        for (int i = 1; i < nums.length; i++) {
+            single = single ^ nums[i]; // XOR each element
+        }
+
+        return single;
+    }
+}
+
