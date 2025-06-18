@@ -105,3 +105,87 @@ void backtrack(State current) {
 - Talk about pruning and avoiding unnecessary paths (not relevant here but in others).
 
 - Use subset trees or binary inclusion-exclusion trees to explain your thought process visually.
+
+📘  Backtracking: Unique Paths in a Grid
+
+🔖 Problem Statement:
+You are given an n x m grid. Starting from the top-left cell (0, 0), you can only move:
+
+👉 Right (i, j + 1)
+
+👇 Down (i + 1, j)
+
+Your goal is to count how many unique paths exist to reach the bottom-right cell (n-1, m-1).
+
+📥 Example Input:
+
+n = 3, m = 3
+
+📤 Example Output:
+
+6
+
+There are 6 valid paths from (0,0) to (2,2).
+
+🧠 Intuition:
+At every cell, you can:
+
+Go right
+
+Or go down
+
+Use backtracking (recursion) to explore both options from every cell until you reach the destination.
+
+When you reach (n-1, m-1) → count it as 1 valid path
+
+🧵 Recursive Flow:
+Start at (0,0)
+↘ Try right → (0,1)
+↘ Try down  → (1,0)
+
+From each step, again try:
+→ right
+↓ down
+
+Count total ways reaching (2,2)
+
+This forms a recursion tree that explores all paths.
+
+✍️ Java Code:
+public class MatrixPaths {
+
+    static int countPaths(int i, int j, int n, int m) {
+        if (i == n - 1 && j == m - 1) return 1;
+        if (i >= n || j >= m) return 0;
+
+        int right = countPaths(i, j + 1, n, m);
+        int down = countPaths(i + 1, j, n, m);
+
+        return right + down;
+    }
+
+    public static void main(String[] args) {
+        int n = 3, m = 3;
+        int totalPaths = countPaths(0, 0, n, m);
+        System.out.println("Total unique paths: " + totalPaths);
+    }
+}
+
+⏱️ Time & Space Complexity
+
+if (base case) return 1;
+if (out of bounds) return 0;
+
+int right = go right;
+int down = go down;
+
+return right + down;
+
+🧠 Bonus Notes (for Interviews)
+This is a classic backtracking to DP upgrade problem.
+
+If they ask for optimization, mention memoization or DP grid.
+
+You can also print actual paths like RRDD, RDRD, etc.
+
+
