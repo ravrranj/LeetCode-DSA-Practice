@@ -188,4 +188,132 @@ If they ask for optimization, mention memoization or DP grid.
 
 You can also print actual paths like RRDD, RDRD, etc.
 
+✅  Leetcode 79 – Word Search
+
+# Word Search – Leetcode 79
+
+## 🧩 Problem Statement
+
+Given a 2D board of characters and a word, return `true` if the word exists in the grid.
+
+- The word can be constructed from letters of **sequentially adjacent cells**.
+- Adjacent cells are **horizontally or vertically neighboring**.
+- The **same letter cell may not be used more than once**.
+
+---
+
+## 🧠 Approach – DFS + Backtracking
+
+1. Traverse every cell in the grid.
+2. If a cell matches the first character of the word, call a recursive DFS.
+3. In the DFS:
+   - Base case: if `index == word.length()`, return true.
+   - Boundary checks:
+     - Out of grid bounds.
+     - Already visited.
+     - Current character mismatch.
+   - Mark the cell as visited.
+   - Explore all 4 directions: up, down, left, right.
+   - Backtrack by unmarking the cell.
+4. If any DFS call returns true, the word exists.
+
+This is a classic backtracking problem: **Try → Explore → Undo**
+
+---
+
+## 📦 Code
+
+```java
+public class WordSearch {
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+
+        for (int i = 0 ; i < m ; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dfs(board, word, visited, i, j, 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] board, String word, boolean[][] visited, int row, int col, int index) {
+        if (index == word.length()) return true;
+
+        if (row < 0 || row >= board.length || 
+            col < 0 || col >= board[0].length || 
+            visited[row][col] || 
+            board[row][col] != word.charAt(index)) {
+            return false;
+        }
+
+        visited[row][col] = true;
+
+        boolean found = dfs(board, word, visited, row + 1, col, index + 1) ||  // down
+                        dfs(board, word, visited, row - 1, col, index + 1) ||  // up
+                        dfs(board, word, visited, row, col + 1, index + 1) ||  // right
+                        dfs(board, word, visited, row, col - 1, index + 1);    // left
+
+        visited[row][col] = false; // backtrack
+
+        return found;
+    }
+}
+
+🔍 Dry Run Example
+Input:
+char[][] board = {
+  {'A','B','C','E'},
+  {'S','F','C','S'},
+  {'A','D','E','E'}
+};
+String word = "ABCCED";
+
+Path:
+
+Start at (0,0) = 'A'
+
+→ (0,1) = 'B'
+
+→ (0,2) = 'C'
+
+→ (1,2) = 'C'
+
+→ (2,2) = 'E'
+
+→ (2,1) = 'D'
+✅ Word matched
+
+⏱️ Time & Space Complexity
+1. Time Complexity: O(m * n * 4^L)
+
+m * n = total cells, L = length of the word
+
+Each cell tries 4 directions recursively for up to L steps.
+
+2. Space Complexity: O(L) for recursion stack + O(m * n) for visited
+
+🧠 What I Learned
+- How to implement DFS in a 2D grid.
+
+- How to backtrack properly using a visited[][] matrix.
+
+- Importance of base cases and clean backtracking.
+
+- Thought process for approaching recursive search problems.
+
+🧪 Test Cases
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+Output: true
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "SEE"
+Output: true
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
+Output: false
+
+🪜 Next Step
+Try Word Search II or Combination Sum to strengthen backtracking further.
+
 
