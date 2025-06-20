@@ -317,3 +317,141 @@ Output: false
 Try Word Search II or Combination Sum to strengthen backtracking further.
 
 
+# 🔄 Permutations (LeetCode 46)
+
+## 🧩 Problem Statement
+
+Given an array `nums` of distinct integers, return *all possible permutations* of the elements.
+
+> You must return the permutations in any order.
+
+---
+
+## ⚙️ Approaches Compared
+
+### 🧪 Method 1: Using `tempList.contains()`  
+```java
+if (tempList.contains(number)) continue;
+
+✅ Pros:
+- Simple and intuitive for beginners.
+- Doesn't require additional memory structures.
+⚠️ Cons:
+- tempList.contains(number) is an O(n) operation per call.
+- This leads to O(n²) time per recursive level in the worst case.
+- Not ideal when performance matters or input size increases.
+
+🚀 Method 2: Using a boolean[] visited array
+if (visited[i]) continue;
+
+
+✅ Pros:
+- Constant time check O(1) to see if a number is already used.
+- Overall recursive call runtime becomes significantly faster.
+- More memory-efficient than a HashSet, and clearer than .contains() checks.
+💡 Note: The visited[] array ensures each index is only used once in a permutation.
+
+📊 Time and Space Complexity
+| Approach | Time Complexity | Space Complexity | 
+| Using .contains() | O(n × n!) | O(n) + Recursion Stack | 
+| Using visited[] | O(n!) | O(n) + Recursion Stack | 
+
+
+
+🌳 Recursion Tree (Example: nums = [1, 2, 3])
+                []
+      _________/ | \_________
+     /           |           \
+   [1]          [2]          [3]
+  /   \         / \          / \
+[1,2][1,3]   [2,1][2,3]   [3,1][3,2]
+   |     |     |     |     |     |
+[1,2,3]...[1,3,2]...[2,1,3]...[3,2,1]
+
+
+
+✅ Conclusion
+- Use .contains() for readability when input size is very small.
+- Use visited[] for optimal performance in interviews or when scaling matters.
+
+✍️ Final Thoughts
+Both solutions use backtracking, but the visited[] version is faster per call and preferred in production scenarios or when performance is tested under time constraints.
+
+
+📁 # 💡 Combination Sum (LeetCode 39)
+
+## 📘 Problem Description
+Given a set of **distinct positive integers** `candidates[]` and a **target** value, find all unique combinations where the candidate numbers sum to the target.  
+Each number in `candidates` may be used an **unlimited number of times**.
+
+> The solution set must not contain duplicate combinations.
+
+---
+
+## 🧠 Intuition
+This problem is a classic case for **backtracking**, where we explore all possible combinations recursively, pruning paths that exceed the target.
+
+- We iterate through the array starting from a `startIndex` to avoid duplicates.
+- Elements can be reused, so we don’t increment the index during recursive calls.
+- Once the running sum equals the `target`, we add a copy of the path to the result.
+
+---
+
+## 🔁 Algorithm Steps
+
+1. Initialize an empty result list.
+2. Call the `backtrack` helper with:
+   - Current path
+   - Remaining target
+   - Start index to prevent revisiting earlier candidates
+3. In `backtrack`:
+   - If `target == 0`, add the current path to result.
+   - If `target < 0`, return (invalid path).
+   - Else, iterate through candidates from `startIndex`, and:
+     - Include the candidate
+     - Recurse with updated target
+     - Backtrack after the call
+
+---
+
+## ⏱ Time and Space Complexity
+
+| Metric             | Complexity                              |
+|--------------------|------------------------------------------|
+| Time Complexity     | O(2^T) — where T = `target`             |
+| Space Complexity    | O(T) — recursion depth and path length  |
+
+---
+
+## ✅ Example
+
+**Input**:
+```java
+candidates = [2, 3, 6, 7], target = 7
+Output:
+[
+  [2, 2, 3],
+  [7]
+]
+🌳 Recursion Tree (for candidates = [2, 3], target = 7)
+                    []
+               /           \
+            [2]             [3]
+           /   \             |
+        [2,2]  [2,3]       [3,3]
+         /        |           |
+     [2,2,2]   [2,3,3]      [3,3,3]
+        |         |            |
+   [2,2,2,1](x) [2,3,3,1](x) [3,3,3,1](x)
+        |         |            |
+   [2,2,3]✓       ...          ...
+
+
+🟢 ✓ = valid result
+❌ (x) = overshoots target
+
+🎯 Key Takeaways
+- Use backtracking with a startIndex to avoid permutations.
+- Candidates can be reused; hence we recurse with i, not i + 1.
+- Mind the difference between this and Combination Sum II, where reuse isn't allowed.
+

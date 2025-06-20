@@ -28,9 +28,11 @@ public class WordSearch {
         visited[row][col] = true;
         
         // Step 5: Explore 4 directions
-        boolean found = dfs(board, word, visited, row + 1, col, index + 1) ||
-                        dfs(board, word, visited, row - 1, col, index + 1) ||
-                        dfs(board, word, visited, row, col - 1, index + 1);
+        boolean found = dfs(board, word, visited, row + 1, col, index + 1) ||  // down
+                dfs(board, word, visited, row - 1, col, index + 1) ||  // up
+                dfs(board, word, visited, row, col + 1, index + 1) ||  // right 
+                dfs(board, word, visited, row, col - 1, index + 1);    // left
+
 
         // Step 6: Backtrack = unmark the cell
         visited[row][col] = false;
