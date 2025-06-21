@@ -455,3 +455,93 @@ Output:
 - Candidates can be reused; hence we recurse with i, not i + 1.
 - Mind the difference between this and Combination Sum II, where reuse isn't allowed.
 
+# 🔢 Subset Sum I (Backtracking)
+
+## 📝 Problem Statement
+
+Given an array of integers, generate the **sum of all possible subsets** and return them. The result may contain duplicates if different subsets yield the same sum.
+
+You are **not required to return the subsets themselves**, only their total sum.
+
+### 🔍 Example
+
+**Input:**  
+`arr = [0, 1, 2, 3]`
+
+**All Subset Sums (including duplicates):**  
+`[0, 1, 2, 3, 3, 4, 5, 6, ...]`
+
+**Output (sorted):**  
+`[0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 5, 6]`
+
+---
+
+## 🔁 Approach
+
+This is a **classic backtracking problem** where we generate all possible subsets using recursion, and calculate the running sum along the way.
+
+### 🌳 Recursion Tree
+
+For every index:
+- **Include** `arr[index]` in current sum
+- **Exclude** `arr[index]` and move on
+
+Each leaf in the tree represents a complete subset.
+
+---
+
+## 💡 Algorithm
+
+1. Start from index `0` with `currentSum = 0`
+2. At each step:
+   - Include the current element in sum
+   - Exclude the current element
+3. When index reaches the end, store `currentSum` in result list
+4. Sort the result at the end if required
+
+---
+
+## ⌛ Time & Space Complexity
+
+| Complexity       | Value            |
+|------------------|------------------|
+| Time             | `O(2^n)`         |
+| Space (result)   | `O(2^n)`         |
+| Space (stack)    | `O(n)`           |
+
+---
+
+## ✅ Java Code
+
+```java
+import java.util.*;
+
+public class SubsetSum {
+    public static void main(String[] args) {
+        int[] arr = {0, 1, 2, 3};
+        List<Integer> result = new ArrayList<>();
+        subsetSums(0, 0, arr, result);
+        Collections.sort(result);  // Optional
+        System.out.println(result);
+    }
+
+    static void subsetSums(int index, int currentSum, int[] arr, List<Integer> result) {
+        if (index == arr.length) {
+            result.add(currentSum);
+            return;
+        }
+
+        // Include current element
+        subsetSums(index + 1, currentSum + arr[index], arr, result);
+
+        // Exclude current element
+        subsetSums(index + 1, currentSum, arr, result);
+    }
+}
+
+🔗 Related Problems
+78. Subsets
+
+Subset Sum II
+
+Partition Equal Subset Sum
