@@ -520,48 +520,6 @@ public boolean isPalindrome(int x) {
 | -121  | false  | Negative numbers not valid |
 | 10    | false  | 10 reversed is 01          |
 
-
-🧠 Problem: 88. Merge Sorted Array
-We are given two sorted arrays:
-
-nums1 of size m + n, where the first m elements are meaningful and the rest are zero placeholders.
-
-nums2 of size n.
-
-We need to merge nums2 into nums1 in-place so that the final nums1 becomes a sorted array of length m + n.
-
-🚀 Approach: Three-Pointer Technique (Start from the End)
-
-Since we can’t use extra space, we start filling nums1 from the end (index m + n - 1) using a three-pointer approach:
-
-i → Points to the last meaningful element in nums1 (i = m - 1)
-
-j → Points to the last element in nums2 (j = n - 1)
-
-k → Points to the end of nums1 (k = m + n - 1)
-
-🔁 Steps:
-While j >= 0:
-
-If nums1[i] > nums2[j], place nums1[i] at nums1[k] and decrement i
-
-Else, place nums2[j] at nums1[k] and decrement j
-
-Decrement k in each iteration
-
-If any elements remain in nums2, they’ll be placed at the front of nums1 (already handled in the loop)
-
-✅ Example:
-
-nums1 = [1,2,3,0,0,0], m = 3  
-nums2 = [2,5,6], n = 3
-
-// Output: [1,2,2,3,5,6]
-
-💡 Key Insight:
-
-By filling from the back, we prevent overwriting useful data in nums1, making this approach efficient and in-place.
-
 🔢 LeetCode Problem: 169. Majority Element
 🧾 Problem Statement
 Given an array nums of size n, return the majority element.
@@ -1615,3 +1573,122 @@ Avoids creating extra arrays by simulating the behavior with modular math.
 - Runs in 0 ms on LeetCode – highly efficient
 
 > 💡 This approach blends logic clarity with mathematical intuition, and demonstrates how understanding array structure can lead to elegant solutions.
+
+# 🚫 LeetCode 27: Remove Element
+
+## 🧩 Problem Statement
+
+Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in-place and return the new length of the array. The order of elements can be changed, and you don't need to consider elements beyond the new length.
+
+---
+
+## ✅ Approach
+
+We iterate through the array using a for loop and maintain a `count` to track where to place the next valid (non-`val`) element.
+
+- If `nums[i] != val`, we assign `nums[count] = nums[i]` and increment `count`.
+- This effectively overwrites elements equal to `val` while preserving other values.
+
+We return `count` at the end, which represents the new length of the array after removal.
+
+---
+
+## ⏱️ Time & Space Complexity
+
+- **Time Complexity:** `O(n)` — Traverse the array once.
+- **Space Complexity:** `O(1)` — In-place modification with no extra memory usage.
+
+---
+
+## 💻 Java Code
+
+```java
+public class RemoveElements {
+    public int removeElement(int[] nums, int val) {
+        int count = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[count] = nums[i];
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+
+🧪 Example
+Input:
+nums = [3, 2, 2, 3], val = 3
+
+Output:
+New length = 2, Modified array = [2, 2, _, _]
+💡 Insight
+This approach ensures that you don’t need to preserve the order of elements, making the overwrite operation straightforward and efficient.
+
+# 🔄 LeetCode 88: Merge Sorted Array
+
+## 🧩 Problem Statement
+
+You’re given two integer arrays:  
+- `nums1` of size `m + n`, with the first `m` elements initialized  
+- `nums2` of size `n`  
+
+The goal is to **merge `nums2` into `nums1` in non-decreasing order**, modifying `nums1` in-place.
+
+---
+
+## ✅ Approach
+
+We use three pointers:
+- `i = m - 1`: points to the end of initialized elements in `nums1`
+- `j = n - 1`: points to the end of `nums2`
+- `k = m + n - 1`: points to the last position in `nums1`
+
+We compare elements from the end of both arrays and place the larger one at position `k`. We repeat this until all of `nums2` is merged.
+
+**Why from the end?**  
+Because `nums1` has enough space, and overwriting from the back prevents accidental loss of data in `nums1`.
+
+---
+
+## ⏱ Time & Space Complexity
+
+- **Time Complexity:** `O(m + n)` — We scan both arrays once.
+- **Space Complexity:** `O(1)` — In-place merging, no extra space needed.
+
+---
+
+## 💻 Java Code
+
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1; 
+        int j = n - 1;
+        int k = m + n - 1;
+
+        while (j >= 0) {
+            if (i >= 0 && nums1[i] > nums2[j]) {
+                nums1[k] = nums1[i];
+                i--;
+            } else {
+                nums1[k] = nums2[j];
+                j--;
+            }
+            k--;
+        }
+    }
+}
+
+🧪 Example
+Input:
+nums1 = [1,2,3,0,0,0], m = 3  
+nums2 = [2,5,6], n = 3
+
+Output:
+nums1 = [1,2,2,3,5,6]
+
+💡 Insight
+This technique avoids extra memory usage and teaches how to smartly work with array ends. It’s a fantastic example of in-place algorithm design.
