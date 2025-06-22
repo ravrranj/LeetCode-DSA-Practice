@@ -1550,3 +1550,68 @@ public class SingleNumber {
     }
 }
 
+# ✅ Check if Array Is Sorted and Rotated — Sliding Window with Circular Indexing
+
+## 🔍 Problem Overview
+
+Given an array of integers, determine whether it is **sorted in non-decreasing order and then rotated**. An array that is already sorted is also considered valid.
+
+Example:
+- `[3, 4, 5, 1, 2]` is valid (rotation of `[1, 2, 3, 4, 5]`)
+- `[1, 3, 2]` is **not** valid
+
+---
+
+## 🚀 My Approach: Simulated Sliding Window on Circular Array
+
+### 🎯 Key Insight
+
+We simulate the rotation behavior by virtually **duplicating the array** (i.e., extending it to `2 * n` elements) using the **modulo operator** for index wrap-around.
+
+### 🧠 How It Works
+
+1. **Loop from index `1` to `2 * n`:**  
+   This mimics scanning the array from every possible rotated starting point.
+
+2. **Use `% n` to simulate circular indexing:**  
+   This avoids `ArrayIndexOutOfBoundsException` while moving across the duplicated range.
+
+3. **Track a `count` of consecutive sorted elements:**  
+   - If current element ≤ next, we increment `count`
+   - If order breaks, reset `count` to 1
+   - If `count == n`, we've found a valid rotated sorted segment.
+
+4. **Return true if a full segment was found, otherwise false.**
+
+### 🔧 Code Snippet
+
+```java
+public boolean check(int[] nums) {
+    int n = nums.length;
+    if (n == 1) return true;
+    int count = 1;
+
+    for (int i = 1; i < 2 * n; i++) {
+        if (nums[(i - 1) % n] <= nums[i % n]) {
+            count++;
+        } else {
+            count = 1;
+        }
+        if (count == n) return true;
+    }
+
+    return false;
+}
+
+🧪 Why This Is Efficient
+-Time Complexity: O(n)
+-Space Complexity: O(1)
+
+Avoids creating extra arrays by simulating the behavior with modular math.
+
+🌟 Highlights
+- Creative use of circular indexing using modulo (%)
+- Sliding window logic applied in a rotated context
+- Runs in 0 ms on LeetCode – highly efficient
+
+> 💡 This approach blends logic clarity with mathematical intuition, and demonstrates how understanding array structure can lead to elegant solutions.
