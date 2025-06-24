@@ -1692,3 +1692,51 @@ nums1 = [1,2,2,3,5,6]
 
 💡 Insight
 This technique avoids extra memory usage and teaches how to smartly work with array ends. It’s a fantastic example of in-place algorithm design.
+
+## 🔹 Problem: 724. Find Pivot Index
+
+**Description:**  
+Given an array of integers, the *pivot index* is the index where the sum of the numbers on the left is equal to the sum on the right. Return the left-most pivot index. If none exists, return -1.
+
+---
+
+### ✅ Approach
+
+1. Calculate the **total sum** of the array.
+2. Initialize a `leftSum` as 0.
+3. Loop through the array:
+   - For each index `i`, calculate `rightSum = total - nums[i] - leftSum`.
+   - If `leftSum == rightSum`, return `i` as the pivot index.
+   - Otherwise, update `leftSum` with the current value.
+4. If no pivot is found after the loop, return -1.
+
+---
+
+### 💻 Code
+
+```java
+public class PivotIndex {
+    public int pivotIndex(int[] nums) {
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+        }
+
+        int leftSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int rightSum = total - nums[i] - leftSum;
+            if (leftSum == rightSum) return i;
+            leftSum += nums[i];
+        }
+
+        return -1;
+    }
+}
+
+📊 Complexity Analysis
+Time Complexity: O(n)
+
+Space Complexity: O(1)
+
+🔍 Insights
+This is a great example of reducing redundant computation using arithmetic insight. It avoids recalculating left and right sums from scratch for each index, achieving linear efficiency.
