@@ -1494,19 +1494,37 @@ Final result: 4 ✅
 - Bit manipulation using XOR is powerful  
 - Time: O(n) | Space: O(1) — Optimal solution
 
-📂Java code : 
 
-public class SingleNumber {
+## Approach
+
+We use the **bitwise XOR (^) operator**, which has the following properties:
+
+- `a ^ a = 0` (a number XOR itself is 0)
+- `a ^ 0 = a` (a number XOR 0 is the number itself)
+- XOR is **commutative** and **associative**
+
+By XORing all the elements in the array, the duplicate numbers cancel each other out, and the result is the unique element.
+
+## Java Solution
+
+```java
+class Solution {
     public int singleNumber(int[] nums) {
-        int single = nums[0]; // variable to store the XOR result
-
+        int result = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            single = single ^ nums[i]; // XOR each element
+            result ^= nums[i];
         }
-
-        return single;
+        return result;
     }
 }
+
+Time and Space Complexity
+Time Complexity: O(n) — Single pass through the array
+
+Space Complexity: O(1) — No extra space used (in-place XOR)
+
+Tags
+Bit Manipulation XOR Array Linear Time
 
 # ✅ Check if Array Is Sorted and Rotated — Sliding Window with Circular Indexing
 
