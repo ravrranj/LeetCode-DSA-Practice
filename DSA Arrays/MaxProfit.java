@@ -5,7 +5,7 @@
 public class MaxProfit {
     public static int maxProfit(int[] prices) {
            int maxProfit = 0;
-           int bestBuy = prices[0];  // // Set to max initially
+           int bestBuy = prices[0];  // Set to max initially
 
           for (int i = 1; i < prices.length; i++) {
             if( prices[i] > bestBuy ) {

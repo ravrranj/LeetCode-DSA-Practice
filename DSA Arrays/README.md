@@ -1758,3 +1758,48 @@ Space Complexity: O(1)
 
 🔍 Insights
 This is a great example of reducing redundant computation using arithmetic insight. It avoids recalculating left and right sums from scratch for each index, achieving linear efficiency.
+
+# Reverse String - Two Pointer Approach
+
+## Problem Statement
+
+Write a function that reverses a character array in-place. The input is given as an array of characters `s`. You must do this by modifying the input array in-place with **O(1)** extra memory.
+
+## Example
+
+Input: s = ["h","e","l","l","o"] Output: ["o","l","l","e","h"]
+
+## Approach
+
+We use the **Two Pointer Technique**:
+
+- Initialize two pointers, `start = 0` and `end = s.length - 1`.
+- Swap the elements at `start` and `end`.
+- Increment `start` and decrement `end` after each swap.
+- Continue until the two pointers meet in the middle.
+
+This method ensures in-place reversal without extra space.
+
+## Java Solution
+
+```java
+public class ReverseString {
+    public void reverseString(char[] s) {
+        int start = 0, end = s.length - 1;
+        while (start < end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+
+Time and Space Complexity
+Time Complexity: O(n) — Single traversal of the array
+
+Space Complexity: O(1) — In-place swapping with no extra data structures
+
+Tags
+Two Pointers Array In-place Algorithm String
