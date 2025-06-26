@@ -1803,3 +1803,62 @@ Space Complexity: O(1) — In-place swapping with no extra data structures
 
 Tags
 Two Pointers Array In-place Algorithm String
+
+# Remove Duplicates from Sorted Array II
+
+This Java program solves the problem: [LeetCode 80 - Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/), where the goal is to remove extra duplicates in-place from a sorted array such that each element appears **at most twice**.
+
+## 🔍 Problem Description
+
+Given an integer array `nums` sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most **twice**. The relative order of the elements should be kept the same.
+
+Return the new length of the array after duplicates are removed. Do not allocate extra space for another array; perform this modification in-place.
+
+### Example
+
+Input: nums = [1,1,1,2,2,3] Output: 5, nums = [1,1,2,2,3,_]
+
+---
+
+## 💡 Approach
+
+- Use a **pointer `i`** initialized at `0` to keep track of the position to insert the next valid number.
+- Traverse the array using a for-each loop.
+- For each number, check:
+  - If `i < 2`, it's guaranteed safe to add it.
+  - Otherwise, compare with `nums[i - 2]`. Only add if it's **not equal** (ensures at most 2 duplicates).
+- Place the valid number at index `i` and increment `i`.
+
+This approach works in-place and maintains the required condition.
+
+---
+
+## 🧪 Code
+
+```java
+public class RemoveDuplicates2 {
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for (int num : nums) {
+            if (i < 2 || num != nums[i - 2]) {
+                nums[i++] = num;
+            }
+        }
+        return i;
+    }
+}
+
+🧠 Time and Space Complexity
+Time Complexity: O(n) — Each element is visited once.
+
+Space Complexity: O(1) — In-place operation without additional memory.
+
+✅ Key Learnings
+Efficient in-place array manipulation using a two-pointer-like strategy.
+
+Edge case handling with i < 2 simplifies logic.
+
+Pattern can be extended to allow at most k duplicates by modifying the condition.
+
+📌 Tags
+Two Pointers · Array · In-Place Algorithm
