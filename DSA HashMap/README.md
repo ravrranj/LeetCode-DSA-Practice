@@ -632,3 +632,99 @@ Space Complexity: O(n) — In the worst case, the HashSet may contain all unique
 
 📌 Tags
 Sliding Window | HashSet | Two Pointers | Strings | LeetCode 3
+
+# LeetCode 2215 – Find the Difference of Two Arrays
+
+## 🧠 Problem Statement
+
+Given two 0-indexed integer arrays `nums1` and `nums2`, return a list containing:
+- Elements present in `nums1` but not in `nums2`
+- Elements present in `nums2` but not in `nums1`
+
+Each list should only contain **unique** elements, and the result should be returned as a list of two lists.
+
+### 🔍 Example
+
+nput:
+nums1 = [1, 2, 3],
+nums2 = [2, 4, 6]
+
+Output:
+[[1, 3], [4, 6]]
+
+---
+
+## ✅ Approach
+
+We use **HashSet** to handle uniqueness and enable quick lookups.
+
+### Steps:
+1. Add all elements of `nums1` to `set1` and `nums2` to `set2`.
+2. Loop through `nums1` and collect elements **not in `set2`** → add to `ans1`.
+3. Loop through `nums2` and collect elements **not in `set1`** → add to `ans2`.
+4. Convert both answer sets to lists and return as a list of two lists.
+
+---
+
+## 🧮 Time & Space Complexity
+
+| Type               | Complexity      |
+|--------------------|-----------------|
+| **Time Complexity** | O(n + m)        |
+| **Space Complexity**| O(n + m)        |
+
+- `n` = length of `nums1`, `m` = length of `nums2`
+- We use sets for constant-time lookups and to handle uniqueness.
+
+---
+
+## 🔗 LeetCode Link
+
+[LeetCode Problem #2215 – Find the Difference of Two Arrays](https://leetcode.com/problems/find-the-difference-of-two-arrays/)
+
+---
+
+## 👨‍💻 Code (Java)
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+public class FindDifference {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        HashSet<Integer> set1 = new HashSet<>();
+        HashSet<Integer> set2 = new HashSet<>();
+
+        for (int val : nums1) {
+            set1.add(val);
+        }
+        for (int val : nums2) {
+            set2.add(val);
+        }
+
+        HashSet<Integer> ans1 = new HashSet<>();
+        for (int val : nums1) {
+            if (!set2.contains(val)) {
+                ans1.add(val);
+            }
+        }
+
+        HashSet<Integer> ans2 = new HashSet<>();
+        for (int val : nums2) {
+            if (!set1.contains(val)) {
+                ans2.add(val);
+            }
+        }
+
+        return Arrays.asList(new ArrayList<>(ans1), new ArrayList<>(ans2));
+    }
+}
+
+💡 Learning
+HashSet helps eliminate duplicates.
+
+Constant time lookups allow efficient comparison between two arrays.
+
+When working with uniqueness and quick checks, sets are your best friend!
