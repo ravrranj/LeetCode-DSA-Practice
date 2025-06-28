@@ -398,6 +398,64 @@ resultSet.stream().mapToInt(Integer::intValue).toArray();
 
 This step converts the set of Integer objects to a primitive int[] array.
 
+# LeetCode: 349. Intersection of Two Arrays
+
+## Problem Statement
+
+Given two integer arrays `nums1` and `nums2`, return an array of their intersection.  
+Each element in the result must be **unique** and you may return the result in **any order**.
+
+### Example:
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+
+
+---
+
+## Approach
+
+- Use a `HashSet` to store elements of the second array.
+- Traverse the first array:
+  - If an element exists in the set, add it to a result list.
+  - Remove it from the set to avoid duplicates.
+- Finally, convert the result list to an array.
+
+---
+
+## Code
+
+```java
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int n2 : nums2) {
+            set.add(n2);
+        }
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int n1 : nums1) {
+            if (set.contains(n1)) {
+                list.add(n1);
+                set.remove(n1); // avoid duplicates
+            }
+        }
+
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+
+        return res;
+    }
+}
+
+Time & Space Complexity
+Time: O(n + m)
+n = length of nums1, m = length of nums2
+
+Space: O(min(n, m)) for the set
+
 
 ## LeetCode 26 – Easy
 
@@ -1862,3 +1920,56 @@ Pattern can be extended to allow at most k duplicates by modifying the condition
 
 📌 Tags
 Two Pointers · Array · In-Place Algorithm
+
+# LeetCode: 387. First Unique Character in a String
+
+## Problem Statement
+
+Given a string `s`, return the index of the **first non-repeating character**. If none exists, return `-1`.
+
+### Example:
+Input: s = "leetcode"
+Output: 0
+
+Input: s = "loveleetcode"
+Output: 2
+
+Input: s = "aabb"
+Output: -1
+
+
+---
+
+## Approach
+
+1. Create a `freq[26]` array to count character frequency.
+2. First pass: iterate through the string to update frequencies.
+3. Second pass: check for the first character with frequency `1`.
+4. Return its index or `-1` if none found.
+
+---
+
+## Code
+
+```java
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] freq = new int[26];  // ASCII a-z only
+        char[] chars = s.toCharArray();
+
+        for (char c : chars) {
+            freq[c - 'a']++; // Map character to index
+        }
+
+        for (int i = 0; i < chars.length; i++) {
+            if (freq[chars[i] - 'a'] == 1) return i;
+        }
+
+        return -1; // No non-repeating character
+    }
+}
+
+Complexity
+Time: O(n) — Two linear scans of the string
+
+Space: O(1) — Only 26-length frequency array (constant space)

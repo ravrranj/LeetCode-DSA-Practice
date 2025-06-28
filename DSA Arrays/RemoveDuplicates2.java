@@ -1,5 +1,5 @@
 
-// 80. Remove Duplicates from Sorted Array II (numbers can occur 2 times but not more than 2 times)
+// 80. Remove Duplicates from Sorted Array II (sorted array where numbers can occur 2 times but not more than 2 times)
 
 public class RemoveDuplicates2 {
        public int removeDuplicates(int[] nums) {
