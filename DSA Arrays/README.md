@@ -1973,3 +1973,78 @@ Complexity
 Time: O(n) — Two linear scans of the string
 
 Space: O(1) — Only 26-length frequency array (constant space)
+
+### ✅ Problem: Range Sum Query - Immutable
+
+We are asked to return the sum of numbers between index `left` and `right` multiple times.  
+To optimize it, we use **Prefix Sum**.
+
+### 💡 Approach: Prefix Sum
+- We precompute a running total (prefix sum) during object construction.
+- Then, for every sumRange query, we return:
+  - `nums[right]` if `left == 0`
+  - else `nums[right] - nums[left - 1]`
+
+### ⏱️ Time Complexity:
+- Constructor: O(n)
+- sumRange query: O(1)
+
+### 📦 Space Complexity:
+- O(1) → No extra space is used; we modify the input array directly.
+
+🧮 What is a Prefix Sum?
+Let’s say:
+nums = [2, 4, 5, 7]
+
+Now let’s convert this to a running total:
+prefixSum = [2, 6, 11, 18]
+
+That means:
+
+prefixSum[0] = 2
+
+prefixSum[1] = 2+4 = 6
+
+prefixSum[2] = 2+4+5 = 11
+
+prefixSum[3] = 2+4+5+7 = 18
+
+So:
+
+To find sum from index 0 to 2 → prefixSum[2] = 11
+
+To find sum from index 1 to 3 → prefixSum[3] - prefixSum[0] = 18 - 2 = 16
+
+We use:
+
+sumRange(left, right) = prefixSum[right] - prefixSum[left - 1]
+
+This works because we’ve already stored the sum till every index!
+
+✅ Your Code Explanation
+public class SumRange {
+    int[] nums;
+
+    public NumsArray(int[] nums) {
+        int s = 0;
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] += s;   // store running total directly in input array
+            s = nums[i];
+        }
+        this.nums = nums;
+    }
+
+    public int sumRange(int left, int right) {
+        if (left == 0) return nums[right];           // sum from 0 to right
+        else return nums[right] - nums[left - 1];    // sum from left to right
+    }
+}
+
+✅ Time and Space Complexity
+| Part                 | Time | Space   |
+| -------------------- | ---- | ------- |
+| Constructor (prefix) | O(n) | O(1) 🔥 |
+| sumRange query       | O(1) | —       |
+⚠️ Note: You're using the original input array to store prefix sums, so no extra space. That’s very clever and space-efficient!
+
+
